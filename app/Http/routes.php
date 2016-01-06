@@ -29,13 +29,6 @@ Route::group(['middleware' => ['web']], function () {
      */
     Route::get('/', function () {
         return view('home');
-    });
-
-    /**
-     * Sign Up
-     */
-    Route::get('/sign_up', function () {
-        return view('sign_up');
-    });    
+    });  
 
 });
