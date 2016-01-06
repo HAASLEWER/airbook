@@ -34,6 +34,7 @@
             <li><a href="#">Settings</a></li>
             <li><a href="#login_modal" class="login">Login</a></li>
           </ul>
+
         </div>
       </nav>
 
