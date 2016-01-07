@@ -57,24 +57,25 @@
 </div>
 
 <!-- Sign Up Modal -->
+<form class="col s12" method="POST" action="{{ url('/register') }}">
+{!! csrf_field() !!}
 <div id="sign_up_modal" class="modal modal-fixed-footer">
 	<div class="modal-content">
 		<h5>Sign Up</h5>
 		<div class="row">
-			<form class="col s12">
 				<div class="row">
 					<div class="input-field col s6">
-					  <input id="first_name" type="text" class="validate">
+					  <input id="first_name" type="text" class="validate" name="name">
 					  <label for="first_name">First Name</label>
 					</div>
 					<div class="input-field col s6">
-					  <input id="last_name" type="text" class="validate">
+					  <input id="last_name" type="text" class="validate" name="lastname">
 					  <label for="last_name">Last Name</label>
 					</div>
 				</div>
 				<div class="row">
 					<div class="input-field col s12">
-					  <input id="rsa-id" type="text" class="validate" length="13">
+					  <input id="rsa-id" type="text" class="validate" length="13" name="idnumber">
 					  <label for="rsa-id">RSA ID</label>
 					</div>
 				</div>  
@@ -84,35 +85,35 @@
 						<input type="file">
 					</div>
 					<div class="file-path-wrapper">
-						<input class="file-path validate" type="text">
+						<input class="file-path validate" type="text" name="idfilepath">
 					</div>
 				</div>	  
 				<div class="row">
 					<div class="input-field col s12">
-					  <input id="email" type="email" class="validate">
+					  <input id="email" type="email" class="validate" name="email">
 					  <label for="email">Email</label>
 					</div>
 				</div>  
 				<div class="row">
 					<div class="input-field col s12">
-					  <input id="password" type="password" class="validate">
+					  <input id="password" type="password" class="validate" name="password">
 					  <label for="password">Password</label>
 					</div>
 				</div>
 				<div class="row">
 					<div class="input-field col s12">
-					  <input id="confirm-password" type="password" class="validate">
+					  <input id="confirm-password" type="password" class="validate" name="password_confirmation">
 					  <label for="confirm-password">Re-Type Password</label>
 					</div>
 				</div>  
-			</form>
 		</div>
 	</div>
 	<div class="modal-footer">
 		<a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
-		<a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Sign Up</a>
+		<input type="submit" value="Sign Up" class="modal-action modal-close waves-effect waves-green btn-flat" />
 	</div>
 </div>
+</form>
 
 <!-- Login Modal -->
 <form class="col s12" method="POST" action="{{ url('/login') }}">
