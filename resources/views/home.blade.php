@@ -115,31 +115,32 @@
 </div>
 
 <!-- Login Modal -->
+<form class="col s12" method="POST" action="{{ url('/login') }}">
 <div id="login_modal" class="modal modal-fixed-footer" style="width: 300px; height: 370px;">
 	<div class="modal-content">
 		<h5>Login</h5>
 		<div class="row">
-			<form class="col s12">  
+				{!! csrf_field() !!}
 				<div class="row">
 					<div class="input-field col s12">
-					  <input id="email" type="email" class="validate">
+					  <input id="email" type="email" class="validate" name="email">
 					  <label for="email">Email</label>
 					</div>
 				</div>  
 				<div class="row">
 					<div class="input-field col s12">
-					  <input id="password" type="password" class="validate">
+					  <input id="password" type="password" class="validate" name="password">
 					  <label for="password">Password</label>
 					</div>
 				</div>
-			</form>
 		</div>
 	</div>
 	<div class="modal-footer">
+		<input type="submit" value="Login" class="modal-action modal-close waves-effect waves-green btn-flat" />
 		<a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
-		<a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Log In</a>
 	</div>
 </div>
+</form>
 
 <script>
 $(document).ready(function() {

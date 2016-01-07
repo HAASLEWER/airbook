@@ -31,4 +31,8 @@ Route::group(['middleware' => ['web']], function () {
         return view('home');
     });  
 
+    /**
+     * Authentication route for Laravel
+     */
+    Route::auth();
 });
