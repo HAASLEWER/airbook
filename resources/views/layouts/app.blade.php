@@ -27,22 +27,72 @@
             <li><a href="/">Home</a></li>
             <li><a href="#">Browse</a></li>
             <li><a href="#">Settings</a></li>
-            <li><a href="#login_modal" class="login">Login</a></li>
+		@if (Auth::user())
+			<li><a href="/logout" class="logout">Logout</a></li>
+		@else
+			<li><a href="#login_modal" class="login">Login</a></li>
+		@endif
           </ul>
           <ul class="side-nav" id="mobile-demo">
             <li><a href="/">Home</a></li>
             <li><a href="#">Browse</a></li>
             <li><a href="#">Settings</a></li>
-            <li><a href="#login_modal" class="login">Login</a></li>
+		@if (Auth::user())
+                        <li><a href="/logout" class="logout">Logout</a></li>
+                @else
+                        <li><a href="#login_modal" class="login">Login</a></li>
+                @endif
           </ul>
 
         </div>
       </nav>
 
+      	<!-- Login Modal -->
+	<form class="col s12" method="POST" action="{{ url('/login') }}">
+		<div id="login_modal" class="modal modal-fixed-footer" style="width: 300px; height: 370px;">
+        		<div class="modal-content">
+                		<h5>Login</h5>
+                		<div class="row">
+                                {!! csrf_field() !!}
+                                	<div class="row">
+                                        	<div class="input-field col s12">
+                                          		<input id="email" type="email" class="validate" name="email">
+                                          		<label for="email">Email</label>
+                                        	</div>
+                                	</div>
+                                	<div class="row">
+                                        	<div class="input-field col s12">
+                                          		<input id="password" type="password" class="validate" name="password">
+                                          		<label for="password">Password</label>
+                                        	</div>
+                                	</div>
+                		</div>
+        		</div>
+        		<div class="modal-footer">
+                		<input type="submit" value="Login" class="modal-action modal-close waves-effect waves-green btn-flat" />
+                		<a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+        		</div>
+		</div>
+	</form>
+
+      <!-- Javascript -->
       <script>
-      $(".button-collapse").sideNav();
+
+      	$(".button-collapse").sideNav();
+	$(document).ready(function() {
+        	// Initialize paralax scrolling view
+        	$('.parallax').parallax();
+
+        	// Initialize Sign Up Button
+        	$('.sign-up').leanModal();
+
+        	// Initialize Login Button
+        	$('.login').leanModal({});      
+	});
+
       </script>
 
       @yield('content')
+
     </body>
 </html>
