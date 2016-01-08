@@ -27,28 +27,28 @@
 	  <div class="row">
 	    <div class="col s12 m4">
 	      <div class="icon-block">
-	        <h2 class="center brown-text"><i class="material-icons" style="font-size: 40px;">flash_on</i></h2>
-	        <h5 class="center">Speeds up development</h5>
+	        <h2 class="center teal-text"><i class="material-icons" style="font-size: 40px;">add</i></h2>
+	        <h5 class="center">Add Valid Ticket</h5>
 
-	        <p class="light" style="text-align: justify;">We did most of the heavy lifting for you to provide a default stylings that incorporate our custom components. Additionally, we refined animations and transitions to provide a smoother experience for developers.</p>
+	        <p class="light" style="text-align: justify;">Simply submit valid airline tickets to become eligable for ticket trades! Tickets are verified to ensure authenticity and are valid up untill the departure date of the ticket has been met. <i>Eligibality for ticket trading is lost if submitted tickets are no longer valid.</i></p>
 	      </div>
 	    </div>
 
 	    <div class="col s12 m4">
 	      <div class="icon-block">
-	        <h2 class="center brown-text"><i class="material-icons" style="font-size: 40px;">group</i></h2>
-	        <h5 class="center">User Experience Focused</h5>
+	        <h2 class="center teal-text"><i class="material-icons" style="font-size: 40px;">search</i></h2>
+	        <h5 class="center">Search Tradable Tickets</h5>
 
-	        <p class="light" style="text-align: justify;">By utilizing elements and principles of Material Design, we were able to create a framework that incorporates components and animations that provide more feedback to users. Additionally, a single underlying responsive system across all platforms allow for a more unified user experience.</p>
+	        <p class="light" style="text-align: justify;">Effortlessly search through our valid tickets which are available for trading! Trawl through all available tickets or filter search results to suit your needs with Airliner, Destination, Departure Date and many more fields to choose from!</p>
 	      </div>
 	    </div>
 
 	    <div class="col s12 m4">
 	      <div class="icon-block">
-	        <h2 class="center brown-text"><i class="material-icons" style="font-size: 40px;">settings</i></h2>
-	        <h5 class="center">Easy to work with</h5>
+	        <h2 class="center teal-text"><i class="material-icons" style="font-size: 40px;">swap_horiz</i></h2>
+	        <h5 class="center">Trade Tickets</h5>
 
-	        <p class="light" style="text-align: justify;">We have provided detailed documentation as well as specific code examples to help new users get started. We are also always open to feedback and can answer any questions a user may have about Materialize.</p>
+	        <p class="light" style="text-align: justify;">Instantly trade your valid ticket for another and gain access to your new tickets reference number! Once you are in possesion of your new ticket reference, you may redeem that ticket with its relevant airliner.</p>
 	      </div>
 	    </div>
 	  </div>
