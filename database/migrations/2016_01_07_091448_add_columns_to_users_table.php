@@ -14,7 +14,7 @@ class AddColumnsToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('lastname');
-	    $table->integer('idnumber');
+	    $table->bigInteger('idnumber');
 	    $table->string('idfilepath')->nullable();
         });
     }
