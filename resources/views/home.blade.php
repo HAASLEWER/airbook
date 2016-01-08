@@ -10,8 +10,8 @@
         <div class="row center">
           <h5 class="header col s12 light" style="color: white;">Trade airline tickets for other airline tickets</h5>
         </div>
-        <div class="row center">
-			<a href="#sign_up_modal" id="download-button" class="btn-large waves-effect waves-light teal lighten-1 sign-up">Sign Up</a>
+	<div class="row center">
+		<a href="#sign_up_modal" id="download-button" class="btn-large waves-effect waves-light teal lighten-1 sign-up">Sign Up</a>
         </div>
         <br><br>
 
@@ -79,15 +79,6 @@
 					  <label for="rsa-id">RSA ID</label>
 					</div>
 				</div>  
-				<div class="file-field input-field">
-					<div class="btn">
-						<span>File</span>
-						<input type="file">
-					</div>
-					<div class="file-path-wrapper">
-						<input class="file-path validate" type="text" name="idfilepath">
-					</div>
-				</div>	  
 				<div class="row">
 					<div class="input-field col s12">
 					  <input id="email" type="email" class="validate" name="email">
@@ -114,46 +105,5 @@
 	</div>
 </div>
 </form>
-
-<!-- Login Modal -->
-<form class="col s12" method="POST" action="{{ url('/login') }}">
-<div id="login_modal" class="modal modal-fixed-footer" style="width: 300px; height: 370px;">
-	<div class="modal-content">
-		<h5>Login</h5>
-		<div class="row">
-				{!! csrf_field() !!}
-				<div class="row">
-					<div class="input-field col s12">
-					  <input id="email" type="email" class="validate" name="email">
-					  <label for="email">Email</label>
-					</div>
-				</div>  
-				<div class="row">
-					<div class="input-field col s12">
-					  <input id="password" type="password" class="validate" name="password">
-					  <label for="password">Password</label>
-					</div>
-				</div>
-		</div>
-	</div>
-	<div class="modal-footer">
-		<input type="submit" value="Login" class="modal-action modal-close waves-effect waves-green btn-flat" />
-		<a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
-	</div>
-</div>
-</form>
-
-<script>
-$(document).ready(function() {
-	// Initialize paralax scrolling view
-	$('.parallax').parallax();
-
-	// Initialize Sign Up Button
-	$('.sign-up').leanModal();
-
-	// Initialize Login Button
-	$('.login').leanModal({});	
-});
-</script>
 
 @endsection
