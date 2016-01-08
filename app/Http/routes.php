@@ -35,4 +35,10 @@ Route::group(['middleware' => ['web']], function () {
      * Authentication route for Laravel
      */
     Route::auth();
+
+    Route::get('/tickets', 'TicketController@index');
+    Route::post('/tickets', 'TicketController@search');    
+    Route::get('/tickets/create', 'TicketController@create');
+    Route::post('/ticket', 'TicketController@store');
+    Route::delete('/ticket/{ticket}', 'TicketController@destroy');    
 });
