@@ -60,7 +60,6 @@
                     </div>
                     <div class="card-reveal">
                         <span class="card-title grey-text text-darken-4">{{ $ticket->origin }} - {{ $ticket->destination }}<i class="material-icons right">close</i></span>
-                        <div>{{ $ticket->ticketref }}</div>
                         <div>{{ $ticket->airline }}</div>
                         <div>{{ $ticket->dateofdeparture }}</div>
                         <div>{{ $ticket->class }}</div>

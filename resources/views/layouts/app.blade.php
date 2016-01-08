@@ -25,7 +25,7 @@
           <a href="#" data-activates="mobile-demo" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
           <ul class="right hide-on-med-and-down">
             <li><a href="/">Home</a></li>
-            <li><a href="#">Browse</a></li>
+            <li><a href="/tickets">Browse</a></li>
             <li><a href="#">Settings</a></li>
 		@if (Auth::user())
 			<li><a href="/logout" class="logout">Logout</a></li>
@@ -35,7 +35,7 @@
           </ul>
           <ul class="side-nav" id="mobile-demo">
             <li><a href="/">Home</a></li>
-            <li><a href="#">Browse</a></li>
+            <li><a href="/tickets">Browse</a></li>
             <li><a href="#">Settings</a></li>
 		@if (Auth::user())
                         <li><a href="/logout" class="logout">Logout</a></li>
