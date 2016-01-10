@@ -36,9 +36,15 @@ Route::group(['middleware' => ['web']], function () {
      */
     Route::auth();
 
+    // Ticket routes
     Route::get('/tickets', 'TicketController@index');
     Route::post('/tickets', 'TicketController@search');    
     Route::get('/tickets/create', 'TicketController@create');
     Route::post('/ticket', 'TicketController@store');
     Route::delete('/ticket/{ticket}', 'TicketController@destroy');    
+
+    // Scraper routes
+    Route::get('/scraper', function() {
+        return view('scraper');
+    });
 });
