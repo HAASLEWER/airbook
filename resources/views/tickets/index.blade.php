@@ -11,27 +11,51 @@
         <div class="card-content">
             <div class="row">
                 <div class="input-field col s4">
-                  <input id="airline" type="text" class="validate" name="airline">
-                  <label for="airline">Airline</label>
+                    <select  id="airline" class="validate">
+                      <option value="" disabled selected>Select Airline</option>
+                      <option value="1">SAA</option>
+                      <option value="2">Kulula</option>
+                      <option value="3">Mango</option>
+                      <option value="3">Safair</option>
+                    </select>
+                    <label>Airline</label>
                 </div>
                 <div class="input-field col s4">
                   <input id="dateofdeparture" type="text" class="validate" name="dateofdeparture">
                   <label for="dateofdeparture">Date</label>
                 </div>    
                 <div class="input-field col s4">
-                  <input id="origin" type="text" class="validate" name="origin">
-                  <label for="origin">Origin</label>
+                    <select  id="origin" class="validate">
+                      <option value="" disabled selected>Select Origin</option>
+                      <option value="1">JNB</option>
+                      <option value="2">BFN</option>
+                      <option value="3">CPT</option>
+                      <option value="3">DBN</option>
+                    </select>
+                    <label>Origin</label>
                 </div>
             </div>   
             <div class="row">
                 <div class="input-field col s4">
-                  <input id="destination" type="text" class="validate" name="destination">
-                  <label for="destination">Destination</label>
+                    <select  id="destination" class="validate">
+                      <option value="" disabled selected>Select Destination</option>
+                      <option value="1">JNB</option>
+                      <option value="2">BFN</option>
+                      <option value="3">CPT</option>
+                      <option value="3">DBN</option>
+                    </select>
+                    <label>Destination</label>
                 </div>
                 <div class="input-field col s4">
-                  <input id="class" type="text" class="validate" name="class">
-                  <label for="class">Class</label>
-                </div>  
+                    <select  id="class" class="validate">
+                      <option value="" disabled selected>Select Class</option>
+                      <option value="1">Economy</option>
+                      <option value="2">Business</option>
+                      <option value="3">First</option>
+                      <option value="3">Premium</option>
+                    </select>
+                    <label>Class</label>
+                </div>
                 <div class="input-field col s4">
                   <input id="roundtrip" type="text" class="validate" name="roundtrip">
                   <label for="roundtrip">Return Trip</label>
@@ -72,5 +96,21 @@
         @endforeach
     @endif
 </div>
+
+<script>
+$(document).ready(function() {
+    // Initialize dropdowns
+    $('select').material_select();
+
+    // I don't know why materialize didn't cater for this
+    // but anyway this just sets the input field name to whatever
+    // the select's id is
+    $('select').change(function(e) {
+        $('select').material_select();
+        var input = $(this).parent().find(".select-dropdown")[0];
+        $(input).attr("name", $(this)[0].id);
+    });    
+});
+</script>
 
 @endsection
