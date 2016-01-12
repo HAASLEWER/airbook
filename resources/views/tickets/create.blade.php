@@ -16,7 +16,7 @@
         </div>    
         <div class="row">
             <div class="input-field col s12">
-              <input id="airline" type="text" class="validate" length="13" name="airline">
+              <input id="airline" type="text" class="validate" name="airline">
               <label for="airline">Airline</label>
             </div>
         </div>  

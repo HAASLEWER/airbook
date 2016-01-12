@@ -13,7 +13,7 @@
                 <div class="input-field col s4">
                     <select  id="airline" class="validate">
                       <option value="" disabled selected>Select Airline</option>
-                      <option value="1">SAA</option>
+                      <option value="1">South African Airways</option>
                       <option value="2">Kulula</option>
                       <option value="3">Mango</option>
                       <option value="3">Safair</option>
