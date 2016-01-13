@@ -106,7 +106,8 @@ class TicketController extends Controller
 
 	    } else {
 
-	    	return redirect('/tickets');
+		$request->session()->flash('status', 'Ticket could not be verified with the airline! Please try again.');
+		return redirect('/tickets/create');
 	    }
 	}    
 
