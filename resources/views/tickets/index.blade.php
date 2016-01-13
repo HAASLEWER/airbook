@@ -97,20 +97,4 @@
     @endif
 </div>
 
-<script>
-$(document).ready(function() {
-    // Initialize dropdowns
-    $('select').material_select();
-
-    // I don't know why materialize didn't cater for this
-    // but anyway this just sets the input field name to whatever
-    // the select's id is
-    $('select').change(function(e) {
-        $('select').material_select();
-        var input = $(this).parent().find(".select-dropdown")[0];
-        $(input).attr("name", $(this)[0].id);
-    });    
-});
-</script>
-
 @endsection

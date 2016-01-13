@@ -88,6 +88,25 @@
 
         	// Initialize Login Button
         	$('.login').leanModal({});      
+
+		// Initialize dropdowns
+    		$('select').material_select();
+
+    		// I don't know why materialize didn't cater for this
+    		// but anyway this just sets the input field name to whatever
+    		// the select's id is
+		$('select').change(function(e) {
+        		$('select').material_select();
+        		var input = $(this).parent().find(".select-dropdown")[0];
+        		$(input).attr("name", $(this)[0].id);
+    		});
+
+		$('.datepicker').pickadate( {
+    			selectMonths: true, // Creates a dropdown to control month
+    			selectYears: 15, // Creates a dropdown of 15 years to control year
+			format: 'yyyy-mm-dd'
+  		});
+
 	});
 
       </script>

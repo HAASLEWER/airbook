@@ -78,19 +78,18 @@ class TicketController extends Controller
 	 */
 	public function store(Request $request)
 	{
+	    $this->validate($request, [
+                        'ticketref' => 'required|max:255',
+                        'airline' => 'required|max:255',
+                        'dateofdeparture' => 'required|max:255',
+                        'origin' => 'required|max:255',
+                        'destination' => 'required|max:255',
+                        'class' => 'required|max:255',
+            ]);
+
 	    $validatedTicket = $this->verifyTicket($request->all());
 	
 	    if ($validatedTicket == true) {
-
-	    	$this->validate($request, [
-	        	'ticketref' => 'required|max:255',
-	        	'airline' => 'required|max:255',
-	        	'dateofdeparture' => 'required|max:255',
-	        	'origin' => 'required|max:255',
-	        	'destination' => 'required|max:255',
-	        	'class' => 'required|max:255',
-	        	'roundtrip' => 'required|max:255',
-	    	]);
 
 	    	$request->user()->tickets()->create([
 	        	'ticketref' => $request->ticketref,
@@ -124,10 +123,10 @@ class TicketController extends Controller
 				$validTicket = $this->verifySouthAfricanAirways($ticketDetails);
 			case 'Kulula':
 				echo 'Kulula';
+			case 'Mango':
+                                echo 'Mango';
 			case 'Safair':
 				echo 'Safair';
-			case 'Mango':
-				echo 'Mango';
 			default:
 				echo 'SAA';
 		}
