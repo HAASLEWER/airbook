@@ -31,7 +31,7 @@ class TicketController extends Controller
      */
     public function __construct(TicketRepository $tickets)
     {
-        $this->middleware('auth');
+        //$this->middleware('auth');
 
         $this->tickets = $tickets;
     }
@@ -67,7 +67,11 @@ class TicketController extends Controller
      * @return Response
      */
     public function create(Request $request) {
-        return view('tickets.create');       
+	if (Auth::check()) {
+        	return view('tickets.create');
+	} else {
+		return view('auth.login');       
+	}
     }    
 
 	/**
