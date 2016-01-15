@@ -7,7 +7,8 @@
     "require": {
         "php": ">=5.5.9",
         "laravel/framework": "5.2.*",
-        "fabpot/goutte": "^3.1"
+        "fabpot/goutte": "^3.1",
+        "jakoch/phantomjs-installer": "1.9.8"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -37,6 +38,7 @@
             "php artisan key:generate"
         ],
         "post-install-cmd": [
+	    "PhantomInstaller\\Installer::installPhantomJS",
             "php artisan clear-compiled",
             "php artisan optimize"
         ],
@@ -44,10 +46,12 @@
             "php artisan clear-compiled"
         ],
         "post-update-cmd": [
-            "php artisan optimize"
+            "php artisan optimize",
+	    "PhantomInstaller\\Installer::installPhantomJS"
         ]
     },
     "config": {
-        "preferred-install": "dist"
+        "preferred-install": "dist",
+	"bin-dir": "vendor/bin"
     }
 }

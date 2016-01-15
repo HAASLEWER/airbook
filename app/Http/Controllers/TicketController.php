@@ -121,14 +121,19 @@ class TicketController extends Controller
 		switch ($ticketDetails['airline']) {
 			case 'South African Airways':
 				$validTicket = $this->verifySouthAfricanAirways($ticketDetails);
+				break;
 			case 'Kulula':
-				echo 'Kulula';
+				//$validTicket = $this->verifyKulula($ticketDetails);
+				echo 'kulula';
+				break;
 			case 'Mango':
                                 echo 'Mango';
+				break;
 			case 'Safair':
-				echo 'Safair';
+				$validTicket = $this->verifySafair($ticketDetails);
+				break;
 			default:
-				echo 'SAA';
+				$validTicket = $this->verifySouthAfricanAirways($ticketDetails);
 		}
 
 		//Boolean representation of valid or invalid ticket
@@ -160,4 +165,59 @@ class TicketController extends Controller
 			return true;
 		}
 	}
+	
+	/**
+        * Validates an Safair ticket via web scraper
+        *
+        * @param array $ticketDetails
+        * @return Boolean
+        */
+        protected function verifySafair($ticketDetails) {
+
+                $client = new Client();
+                $crawler = $client->request('GET', 'https://www.flysafair.co.za/manage/Manage-booking');
+
+                $form = $crawler->selectButton('Retrieve booking')->form();
+                $form['PNR'] = $ticketDetails['ticketref'];
+                $form['lastName'] = Auth::user()->lastname;
+
+                $crawler = $client->submit($form);
+
+                if (strpos($crawler->text(),'
+                    Your booking could not be found. Please check the spelling and try again.
+                ') === false) {
+                        return false;
+                } else {
+                        return true;
+                }
+        }
+
+	 /**
+	* NOT YET WORKING!!!!
+        * Validates a Kulula ticket via web scraper
+        *
+        * @param array $ticketDetails
+        * @return Boolean
+        
+        protected function verifyKulula($ticketDetails) {
+
+                $client = new Client();
+                $crawler = $client->request('GET', 'https://flights.kulula.com/SSW2010/E6IE/myb.html#_ga=', 
+					['headers' => [
+						'User-Agent' => "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36"
+						]
+					]);
+
+                $form = $crawler->selectButton('view / change flight')->form();
+                $form['bookingretrieval-reservationCode'] = $ticketDetails['ticketref'];
+                $form['bookingretrieval-lastName'] = Auth::user()->lastname;
+
+                $crawler = $client->submit($form);
+
+                if (strpos($crawler->text(),'Booking not found') == false) {
+                        return false;
+                } else {
+                        return true;
+                }
+        }*/
 }
