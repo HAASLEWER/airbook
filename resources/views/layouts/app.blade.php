@@ -28,7 +28,7 @@
             <li><a href="/tickets">Browse</a></li>
 	    	@if (Auth::user())
                         <li><a href="/tickets/create" class="create">Add Ticket</a></li>
-			<li><a href="#">Settings</a></li>
+			<li><a href="/tickets/profile">My Tickets</a></li>
 			<li><a href="/logout" class="logout">Logout</a></li>
 		@else
 			<li><a href="#login_modal" class="login">Login</a></li>
@@ -39,7 +39,7 @@
             <li><a href="/tickets">Browse</a></li>
 		@if (Auth::user())
                         <li><a href="/tickets/create" class="create">Add Ticket</a></li>
-			<li><a href="#">Settings</a></li>
+			<li><a href="/tickets/profile">My Tickets</a></li>
 			<li><a href="/logout" class="logout">Logout</a></li>
 		@else
 			<li><a href="#login_modal" class="login">Login</a></li>

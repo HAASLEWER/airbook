@@ -31,8 +31,6 @@ class TicketController extends Controller
      */
     public function __construct(TicketRepository $tickets)
     {
-        //$this->middleware('auth');
-
         $this->tickets = $tickets;
     }
 
@@ -46,6 +44,18 @@ class TicketController extends Controller
         return view('tickets.index', [
             'tickets' => $this->tickets->allTickets(),
         ]);       
+    }
+
+    /**
+     * Display a list of a Users Tiackets.
+     *
+     * @param  Request  $request
+     * @return Response
+     */
+    public function userTickets(Request $request) {
+        return view('users.index', [
+            'tickets' => $this->tickets->forUser(Auth::user()),
+        ]);
     }
 
     /**
@@ -105,7 +115,7 @@ class TicketController extends Controller
 	        	'roundtrip' => $request->roundtrip,
 	    	]);
 
-	    	return redirect('/tickets');
+	    	return redirect('/tickets/profile');
 
 	    } else {
 
