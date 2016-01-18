@@ -53,4 +53,31 @@ class TicketRepository
                     ->orderBy('created_at', 'asc')
                     ->get();
     }         
+
+    /**
+     * Search User specific tickets.
+     *
+     * @param  Ticket  $ticket     
+     * @return Collection
+     */
+    public function searchUserTickets($req, User $user)
+    {
+        $where = [];
+        unset($req["_token"]);
+
+        foreach ($req as $key => $value) {
+            if (empty($value)) {
+                unset($req[$key]);
+            } else {
+                $where[$key] = $value;
+            }
+        }
+
+	//Append user_id to where condition to return only that users tickets
+	$where["user_id"] = $user->id;
+
+        return Ticket::where($where)
+                    ->orderBy('created_at', 'asc')
+                    ->get();
+    }
 }
