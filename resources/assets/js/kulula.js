@@ -1,68 +1,72 @@
-"use strict";
-var page = require('webpage').create(),
-	resources = [];
+var page = new WebPage(), testindex = 0, loadInProgress = false;
 var system = require('system');
 
-page.onLoadFinished = function(status) {
-	console.log('Load Complete');
+page.onConsoleMessage = function(msg) {
+  console.log(msg);
 };
 
-page.onResourceReceived = function(response) {
-    // apply resource filter if needed:
-    if (response.headers.filter(function(header) {
-    	if (header.name == 'Content-Type' && header.value.indexOf('text/html') == 0) {
-    	    return true;
+page.onLoadStarted = function() {
+  loadInProgress = true;
+  console.log("load started");
+};
+
+page.onLoadFinished = function() {
+  loadInProgress = false;
+  console.log("load finished");
+};
+
+var steps = [
+  function() {
+    //Load Login Page
+    page.settings.userAgent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.71 Safari/537.36';
+    page.open("https://flights.kulula.com/SSW2010/E6IE/myb.html");
+  },
+  function() {
+    var details = [system.args[1], system.args[2]];
+    //Enter Credentials
+    page.evaluate(function(deets) {
+
+      var arr = document.getElementById("form_bookingretrieval_1");
+      var i;
+
+      for (i=0; i < arr.length; i++) { 
+        if (arr[i].getAttribute('method') == "POST") {
+
+          arr[i].elements["reservationCode"].value=deets[0];
+          arr[i].elements["lastName"].value=deets[1];
+          arr[i].elements["actionCode"].value="retrieveBooking";
+          arr[i].elements["inOverlay"].value="false";
+          return;
         }
-        return false;
-    }).length > 0)
-    	resources.push(response);
-    };
+      }
+    }, details);
+  }, 
+  function() {
+    //Login
+    var details = [system.args[1], system.args[2]];
+    page.evaluate(function(deets) {
+      document.getElementById('bookingretrieval-lastName').value = deets[0];
+      document.getElementById('bookingretrieval-reservationCode').value = deets[1];
+      document.getElementById("form_bookingretrieval_1").submit();
+    }, details);
+  }, 
+  function() {
+    // Output content of page to stdout after form has been submitted
+    page.evaluate(function() {
+      console.log(document.querySelectorAll('html')[0].outerHTML);
+    });
+  }
+];
 
-page.onResourceError = function(resourceError) {
-    page.reason = resourceError.errorString;
-    page.reason_url = resourceError.url;
-};
 
-if (system.args.length !== 3) {
-	console.log('Usage: kulula.js <refCode> <lastName>');
-	phantom.exit(1);
-} else {
-	var details = [system.args[1], system.args[2]]
-
-	page.settings.userAgent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.71 Safari/537.36';
-
-	page.open('https://flights.kulula.com/SSW2010/E6IE/myb.html', function(status) {
-	console.log('HTTP status Code: ' + resources[0].status);
-	console.log('Status : ' + status);
-	console.log('Status Reason : ' + page.reason);
-	console.log(page.reason_url);
-    	setTimeout(function() {
-        	page.evaluate(function(deets) {
-			//console.log(deets[0]);
-			setTimeout(document.querySelector('input[name=reservationCode]').value = deets[0], 1000);
-			setTimeout(document.querySelector('input[name=lastName]').value = '"'+deets[1]+'"' , 1000);
-			setTimeout(document.querySelector('input[name=actionCode]').value = '"retrieveBooking"', 1000);
-			setTimeout(document.querySelector('input[name=inOverlay]').value = "false", 1000);
-			setTimeout(document.querySelector('input[name=brSubmit]').click(), 1000);
-			setTimeout(document.getElementById('form_bookingretrieval_1').submit(), 5000);
-        	}, details);
-    	}, 10000);
-	var submit = page.evaluate(function() {
-		return document.title;
-	});
-	console.log(submit);
-	});
-
-	/*var url = 'https://flights.kulula.com/SSW2010/E6IE/myb.html';
-	var data = "reservastionCode=" + system.args[1] + "&lastName=" + system.args[2] + "&actionCode=retrieveBooking&inOverlay=false&brSubmit=view / change flight&componentTypes=bookingretrieval";
-
-	page.open(url, 'post', data, function (status) {
-    		if (status !== 'success') {
-        		console.log('Unable to post!');
-    		} else {
-        		console.log(page.title);
-    		}
-    	phantom.exit();
-	});*/
-	
-}
+interval = setInterval(function() {
+  if (!loadInProgress && typeof steps[testindex] == "function") {
+    console.log("step " + (testindex + 1));
+    steps[testindex]();
+    testindex++;
+  }
+  if (typeof steps[testindex] != "function") {
+    console.log("test complete!");
+    phantom.exit();
+  }
+}, 50);
