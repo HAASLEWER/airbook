@@ -141,7 +141,7 @@ class TicketController extends Controller
 				echo 'kulula';
 				break;
 			case 'Mango':
-                                echo 'Mango';
+                $validTicket = $this->verifyMango($ticketDetails);
 				break;
 			case 'Safair':
 				$validTicket = $this->verifySafair($ticketDetails);
@@ -180,58 +180,97 @@ class TicketController extends Controller
 		}
 	}
 	
-	/**
-        * Validates an Safair ticket via web scraper
-        *
-        * @param array $ticketDetails
-        * @return Boolean
-        */
-        protected function verifySafair($ticketDetails) {
-
-                $client = new Client();
-                $crawler = $client->request('GET', 'https://www.flysafair.co.za/manage/Manage-booking');
-
-                $form = $crawler->selectButton('Retrieve booking')->form();
-                $form['PNR'] = $ticketDetails['ticketref'];
-                $form['lastName'] = Auth::user()->lastname;
-
-                $crawler = $client->submit($form);
-
-                if (strpos($crawler->text(),'
-                    Your booking could not be found. Please check the spelling and try again.
-                ') === false) {
-                        return false;
-                } else {
-                        return true;
-                }
-        }
-
-	 /**
-	* NOT YET WORKING!!!!
+     /**
+    * NOT YET WORKING!!!!
         * Validates a Kulula ticket via web scraper
         *
         * @param array $ticketDetails
         * @return Boolean
         
-        protected function verifyKulula($ticketDetails) {
+    protected function verifyKulula($ticketDetails) {
 
-                $client = new Client();
-                $crawler = $client->request('GET', 'https://flights.kulula.com/SSW2010/E6IE/myb.html#_ga=', 
-					['headers' => [
-						'User-Agent' => "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36"
-						]
-					]);
+            $client = new Client();
+            $crawler = $client->request('GET', 'https://flights.kulula.com/SSW2010/E6IE/myb.html#_ga=', 
+                ['headers' => [
+                    'User-Agent' => "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36"
+                    ]
+                ]);
 
-                $form = $crawler->selectButton('view / change flight')->form();
-                $form['bookingretrieval-reservationCode'] = $ticketDetails['ticketref'];
-                $form['bookingretrieval-lastName'] = Auth::user()->lastname;
+            $form = $crawler->selectButton('view / change flight')->form();
+            $form['bookingretrieval-reservationCode'] = $ticketDetails['ticketref'];
+            $form['bookingretrieval-lastName'] = Auth::user()->lastname;
 
-                $crawler = $client->submit($form);
+            $crawler = $client->submit($form);
 
-                if (strpos($crawler->text(),'Booking not found') == false) {
-                        return false;
-                } else {
-                        return true;
-                }
-        }*/
+            if (strpos($crawler->text(),'Booking not found') == false) {
+                    return false;
+            } else {
+                    return true;
+            }
+    }*/
+
+    /**
+    * Validates a Mango ticket via web scraper
+    *
+    * @param array $ticketDetails
+    * @return Boolean
+    */
+    protected function verifyMango($ticketDetails) {
+
+        $client = new Client();
+        $crawler = $client->request('GET', 'https://www.flymango.com/en/manage-travel/check-and-change/view-booking');
+
+        //Get User DOB
+        $id = Auth::user()->idnumber;
+
+        //Calculate Century
+        $currentYear = date("y");
+        $birthYear = substr($id, 0, 2);
+        if($birthYear > $currentYear) {
+            $formYear = '19'.$birthYear;
+        } else {
+            $formYear = '20'.$birthYear;
+        }
+
+        $form = $crawler->selectButton('Login')->form();
+
+        $form['bookingNumber'] = $ticketDetails['ticketref'];
+        $form['birthDay'] = substr($id, 4, 2);
+        $form['birthMonth'] = substr($id, 2, 2);
+        $form['birthYear'] = $formYear;
+
+        $crawler = $client->submit($form);
+
+        if (strpos($crawler->text(),'Your reservation number could not be found') == false) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
+    /**
+    * Validates an Safair ticket via web scraper
+    *
+    * @param array $ticketDetails
+    * @return Boolean
+    */
+    protected function verifySafair($ticketDetails) {
+
+            $client = new Client();
+            $crawler = $client->request('GET', 'https://www.flysafair.co.za/manage/Manage-booking');
+
+            $form = $crawler->selectButton('Retrieve booking')->form();
+            $form['PNR'] = $ticketDetails['ticketref'];
+            $form['lastName'] = Auth::user()->lastname;
+
+            $crawler = $client->submit($form);
+
+            if (strpos($crawler->text(),'
+                Your booking could not be found. Please check the spelling and try again.
+            ') === false) {
+                    return false;
+            } else {
+                    return true;
+            }
+    }
 }
