@@ -9,6 +9,7 @@
     {!! csrf_field() !!}
     <div class="card search-card">
         <div class="card-content">
+	    <h3>Tradable Tickets</h3>
             <div class="row">
                 <div class="input-field col s4">
                     <select  id="airline" class="validate">

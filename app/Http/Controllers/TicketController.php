@@ -71,6 +71,18 @@ class TicketController extends Controller
     }    
 
     /**
+     * Search for user specific tickets.
+     *
+     * @param  Request  $request
+     * @return Response
+     */
+    public function userSearch(Request $request) {
+        return view('users.index', [
+            'tickets' => $this->tickets->searchUserTickets($request->all(), Auth::user()),
+        ]);
+    }
+
+    /**
      * Display the create ticket form.
      *
      * @param  Request  $request

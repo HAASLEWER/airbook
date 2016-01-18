@@ -3,10 +3,73 @@
 @section('content')
 
 <link rel="stylesheet" href="{{ URL::asset('css/tickets/index.css') }}">
+<form method="POST" action="{{ url('/tickets/profile') }}">
+    {!! csrf_field() !!}
+    <div class="card search-card">
+        <div class="card-content">
+	    <h3>My Tickets</h3>
+            <div class="row">
+                <div class="input-field col s4">
+                    <select  id="airline" class="validate">
+                      <option value="" disabled selected>Select Airline</option>
+                      <option value="1">South African Airways</option>
+                      <option value="2">Kulula</option>
+                      <option value="3">Mango</option>
+                      <option value="3">Safair</option>
+                    </select>
+                    <label>Airline</label>
+                </div>
+                <div class="input-field col s4">
+                  <input id="dateofdeparture" type="text" class="validate" name="dateofdeparture">
+                  <label for="dateofdeparture">Date</label>
+                </div>
+                <div class="input-field col s4">
+                    <select  id="origin" class="validate">
+                      <option value="" disabled selected>Select Origin</option>
+                      <option value="1">JNB</option>
+                      <option value="2">BFN</option>
+                      <option value="3">CPT</option>
+                      <option value="3">DBN</option>
+                    </select>
+                    <label>Origin</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s4">
+                    <select  id="destination" class="validate">
+                      <option value="" disabled selected>Select Destination</option>
+                      <option value="1">JNB</option>
+                      <option value="2">BFN</option>
+                      <option value="3">CPT</option>
+                      <option value="3">DBN</option>
+                    </select>
+                    <label>Destination</label>
+                </div>
+                <div class="input-field col s4">
+                    <select  id="class" class="validate">
+                      <option value="" disabled selected>Select Class</option>
+                      <option value="1">Economy</option>
+                      <option value="2">Business</option>
+                      <option value="3">First</option>
+                      <option value="3">Premium</option>
+                    </select>
+                    <label>Class</label>
+                </div>
+		<div class="input-field col s4">
+                  <input id="roundtrip" type="text" class="validate" name="roundtrip">
+                  <label for="roundtrip">Return Trip</label>
+                </div>
+            </div>
+
+            <button class="btn waves-effect waves-light" type="submit" name="action">Search
+              <i class="material-icons right">send</i>
+            </button>
+        </div>
+    </div>
+</form>
 
 <div class="card">
         <div class="card-content">
-		<h3>My Tickets</h3>
 			<div class="row">
     				@if (count($tickets) > 0)
         				@foreach ($tickets as $ticket)
