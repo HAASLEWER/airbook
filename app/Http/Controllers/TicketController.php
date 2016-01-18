@@ -184,8 +184,9 @@ class TicketController extends Controller
 		$form['abmjasa'] = 'SEARCH';
 
 		$crawler = $client->submit($form);
+		sleep(2);
 
-		if (strpos($crawler->text(),'Your reservation number could not be found') == false) {
+		if (strpos($crawler->text(),'Your reservation number could not be found') == true) {
 			return false;
 		} else {
 			return true;
@@ -279,7 +280,7 @@ class TicketController extends Controller
 
             if (strpos($crawler->text(),'
                 Your booking could not be found. Please check the spelling and try again.
-            ') === false) {
+            ') == true) {
                     return false;
             } else {
                     return true;
