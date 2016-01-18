@@ -14,12 +14,12 @@ page.onConsoleMessage = function(msg) {
 
 page.onLoadStarted = function() {
   loadInProgress = true;
-  console.log("load started");
+  //console.log("load started");
 };
 
 page.onLoadFinished = function() {
   loadInProgress = false;
-  console.log("load finished");
+  //console.log("load finished");
 };
 
 var steps = [
@@ -61,7 +61,11 @@ var steps = [
     // Output content of page to stdout after form has been submitted
     page.evaluate(function() {
       //console.log(document.querySelectorAll('html')[0].outerHTML);
-      console.log(document.title);
+      if(document.title == 'My Booking - kulula.com Error;') {
+        console.log('1');
+      } else {
+        console.log('0');
+      }
     });
   }
 ];
@@ -69,12 +73,12 @@ var steps = [
 
 interval = setInterval(function() {
   if (!loadInProgress && typeof steps[testindex] == "function") {
-    console.log("step " + (testindex + 1));
+    //console.log("step " + (testindex + 1));
     steps[testindex]();
     testindex++;
   }
   if (typeof steps[testindex] != "function") {
-    console.log("test complete!");
+    //console.log("test complete!");
     phantom.exit();
   }
 }, 50);
