@@ -53,7 +53,8 @@ var steps = [
   function() {
     // Output content of page to stdout after form has been submitted
     page.evaluate(function() {
-      console.log(document.querySelectorAll('html')[0].outerHTML);
+      //console.log(document.querySelectorAll('html')[0].outerHTML);
+      console.log(document.getElementById('flow-message-bookingNotFound').innerHTML);
     });
   }
 ];
