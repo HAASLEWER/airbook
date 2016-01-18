@@ -70,7 +70,8 @@
     </div>
 </form>
             
-
+<div class="card">
+<div class="card-content">
 <div class="row">
     @if (count($tickets) > 0)
         @foreach ($tickets as $ticket)
@@ -96,6 +97,8 @@
             </div>    
         @endforeach
     @endif
+</div>
+</div>
 </div>
 
 @endsection

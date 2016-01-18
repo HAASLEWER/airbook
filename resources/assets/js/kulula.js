@@ -1,6 +1,13 @@
 var page = new WebPage(), testindex = 0, loadInProgress = false;
 var system = require('system');
 
+if (system.args.length !== 3) {
+    console.log('Usage: kulula.js <refCode> <lastName>');
+    setTimeout(function() {
+	phantom.exit();
+    }, 0);
+}
+
 page.onConsoleMessage = function(msg) {
   console.log(msg);
 };
