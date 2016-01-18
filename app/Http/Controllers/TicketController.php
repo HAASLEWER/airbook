@@ -241,7 +241,7 @@ class TicketController extends Controller
 
         $crawler = $client->submit($form);
 
-        if (strpos($crawler->text(),'Your reservation number could not be found') == false) {
+        if (strpos($crawler->text(),'Couldn\'t find the specified booking.') == true) {
             return false;
         } else {
             return true;
