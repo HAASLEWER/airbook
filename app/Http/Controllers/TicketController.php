@@ -205,7 +205,7 @@ class TicketController extends Controller
 
 		$crawler = $client->submit($form);
 
-		if (!strpos($crawler->text(),"Your reservation number could not be found")) {
+		if (!strpos($crawler->text(),"LOGOUT")) {
 			return false;
 		} else {
 			return true;

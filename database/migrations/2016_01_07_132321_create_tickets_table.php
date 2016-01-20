@@ -20,7 +20,7 @@ class CreateTicketsTable extends Migration
             $table->string('class');
             $table->string('origin', 255);
             $table->string('destination', 255);
-            $table->boolean('roundtrip');
+            $table->boolean('roundtrip')->nullable();
             $table->timestamps();
         });
     }
