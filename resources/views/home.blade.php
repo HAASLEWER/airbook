@@ -11,7 +11,9 @@
           <h5 class="header col s12 light" style="color: white;">Trade airline tickets for other airline tickets</h5>
         </div>
 	<div class="row center">
+		@if (!Auth::user())
 		<a href="#sign_up_modal" id="download-button" class="btn-large waves-effect waves-light teal lighten-1 sign-up">Sign Up</a><br /><br />
+		@endif
 		<a href="/tickets" id="download-button" class="btn-large waves-effect waves-light teal lighten-1 sign-up">Browse Tickets</a>
         </div>
         <br><br>
