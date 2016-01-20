@@ -32,7 +32,7 @@
         	<div class="row">
             		<div class="input-field">
               			<input id="ticketref" type="text" class="validate" length="13" name="ticketref">
-              			<label for="ticketref">Ticket Reference</label>
+              			<label for="ticketref">Booking Reference/Code</label>
             		</div>
         	</div>    
 		<div class="row">

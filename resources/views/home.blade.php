@@ -31,7 +31,7 @@
 	        <h2 class="center teal-text"><i class="material-icons" style="font-size: 40px;">add</i></h2>
 	        <h5 class="center">Add Valid Ticket</h5>
 
-	        <p class="light" style="text-align: justify;">Simply submit valid airline tickets to become eligable for ticket trades! Tickets are verified to ensure authenticity and are valid up untill the departure date of the ticket has been met. <i>Eligibality for ticket trading is lost if submitted tickets are no longer valid.</i></p>
+	        <p class="light" style="text-align: justify;">Simply submit valid airline tickets to become eligable for trade credit! Tickets are verified to ensure authenticity and are valid up untill the departure date of the ticket has been met. <i>Eligibality for ticket trading is lost if submitted tickets are no longer valid.</i></p>
 	      </div>
 	    </div>
 
@@ -49,7 +49,7 @@
 	        <h2 class="center teal-text"><i class="material-icons" style="font-size: 40px;">swap_horiz</i></h2>
 	        <h5 class="center">Trade Tickets</h5>
 
-	        <p class="light" style="text-align: justify;">Instantly trade your valid ticket for another and gain access to your new tickets reference number! Once you are in possesion of your new ticket reference, you may redeem that ticket with its relevant airliner.</p>
+	        <p class="light" style="text-align: justify;">Instantly trade your credit for a ticket and gain access to your new tickets reference number! Once you are in possesion of your new ticket reference, you may redeem that ticket with its relevant airliner.</p>
 	      </div>
 	    </div>
 	  </div>
