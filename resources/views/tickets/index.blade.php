@@ -86,12 +86,23 @@
                     </div>
                     <div class="card-reveal">
                         <span class="card-title grey-text text-darken-4">{{ $ticket->origin }} - {{ $ticket->destination }}<i class="material-icons right">close</i></span>
-                        <div>{{ $ticket->airline }}</div>
-                        <div>{{ $ticket->dateofdeparture }}</div>
-                        <div>{{ $ticket->class }}</div>
-                        <div>{{ $ticket->origin }}</div>
-                        <div>{{ $ticket->destination }}</div>
-                        <div>{{ $ticket->roundtrip }}</div>
+                        <div>Aireline : {{ $ticket->airline }}</div>
+                        <div>Departure : {{ $ticket->dateofdeparture }}</div>
+                        <div>Class : {{ $ticket->class }}</div>
+                        <div>Origin : {{ $ticket->origin }}</div>
+                        <div>Destination : {{ $ticket->destination }}</div>
+                        <div>Return Ticket : {{ $ticket->roundtrip }}</div>
+			@if (Auth::user())
+			<hr/>
+			<form method="POST" action="{{ url('/ticket/trade') }}">
+			   {!! csrf_field() !!}
+			   <input type="hidden" name="id" value="{{ $ticket->id }}">
+			   <input type="hidden" name="user_id" value="{{ $ticket->user_id }}">	
+			   <button class="btn waves-effect waves-light" type="submit">Acquire using Credit
+              			<i class="material-icons right">send</i>
+            		   </button>
+			</form>
+			@endif
                     </div>
                 </div>
             </div>    

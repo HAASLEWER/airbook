@@ -31,4 +31,13 @@ class User extends Authenticatable
     {
         return $this->hasMany(Ticket::class);
     }
+
+    /**
+    * Get the credit record associated with the user.
+    *
+    */
+    public function credits()
+    {
+        return $this->hasOne(Credit::class);
+    }
 }

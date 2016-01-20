@@ -3,11 +3,27 @@
 @section('content')
 
 <link rel="stylesheet" href="{{ URL::asset('css/tickets/index.css') }}">
-<form method="POST" action="{{ url('/tickets/profile') }}">
+<form method="POST" action="{{ url('/profile') }}">
     {!! csrf_field() !!}
     <div class="card search-card">
         <div class="card-content">
-	    <h3>My Tickets</h3>
+	    <!-- Display Validation Errors -->
+            <div class="row red darken-4">
+                @if(Session::has('status'))
+                        <b class="white-text">Something went wrong!</b>
+                        <br/><br/>
+                        <span class="white-text">{{ Session::get('status') }}</span>
+                        <br/><br/>
+                @endif
+            </div>
+	    @if (count($credits) == 0)
+	    <h3>Credits : 0</h3>
+	    @endif
+	    @foreach ($credits as $credit)
+	    <h3>Credits: {{ $credit->trade }}</h3>
+	    @endforeach
+	    <hr/>
+	    <h3>Acquired Tickets</h3>
             <div class="row">
                 <div class="input-field col s4">
                     <select  id="airline" class="validate">
@@ -84,12 +100,13 @@
                     						</div>
                     						<div class="card-reveal">
                         						<span class="card-title grey-text text-darken-4">{{ $ticket->origin }} - {{ $ticket->destination }}<i class="material-icons right">close</i></span>
-                        						<div>{{ $ticket->airline }}</div>
-                       							<div>{{ $ticket->dateofdeparture }}</div>
-                        						<div>{{ $ticket->class }}</div>
-                        						<div>{{ $ticket->origin }}</div>
-                        						<div>{{ $ticket->destination }}</div>
-                        						<div>{{ $ticket->roundtrip }}</div>
+									<div>Ticket Reference : <b>{{ $ticket->ticketref }}</b></div>
+                        						<div>Airline : {{ $ticket->airline }}</div>
+                       							<div>Departure : {{ $ticket->dateofdeparture }}</div>
+                        						<div>Class : {{ $ticket->class }}</div>
+                        						<div>Origin : {{ $ticket->origin }}</div>
+                        						<div>Destination : {{ $ticket->destination }}</div>
+                        						<div>Return Ticket : {{ $ticket->roundtrip }}</div>
                     						</div>
                 					</div>
             					</div>    

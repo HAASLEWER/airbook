@@ -8,20 +8,25 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Ticket;
+use App\Credit;
+
 use App\Repositories\TicketRepository;
+use App\Repositories\CreditRepository;
 
 use Auth;
+use DB;
 
 use Goutte\Client;
 
 class TicketController extends Controller
 {
     /**
-     * The ticket repository instance.
+     * Repository instances.
      *
-     * @var TicketRepository
+     * @var TicketRepository CreditRepository
      */
     protected $tickets;
+    protected $credits;
 
     /**
      * Create a new controller instance.
@@ -29,9 +34,10 @@ class TicketController extends Controller
      * @param  TicketRepository  $tickets
      * @return void
      */
-    public function __construct(TicketRepository $tickets)
+    public function __construct(TicketRepository $tickets, CreditRepository $credits)
     {
         $this->tickets = $tickets;
+	$this->credits = $credits;
     }
 
     /**
@@ -52,9 +58,10 @@ class TicketController extends Controller
      * @param  Request  $request
      * @return Response
      */
-    public function userTickets(Request $request) {
+    public function userProfile(Request $request) {
         return view('users.index', [
-            'tickets' => $this->tickets->forUser(Auth::user()),
+            'tickets' => $this->tickets->forUserAcquired(Auth::user()),
+	    'credits' => $this->credits->searchUserCreditAmount(Auth::user())
         ]);
     }
 
@@ -78,7 +85,7 @@ class TicketController extends Controller
      */
     public function userSearch(Request $request) {
         return view('users.index', [
-            'tickets' => $this->tickets->searchUserTickets($request->all(), Auth::user()),
+            'tickets' => $this->tickets->searchUserTicketsAcquired($request->all(), Auth::user()),
         ]);
     }
 
@@ -113,7 +120,8 @@ class TicketController extends Controller
                         'class' => 'required|max:255',
             ]);
 
-	    $validatedTicket = $this->verifyTicket($request->all());
+	    //$validatedTicket = $this->verifyTicket($request->all());
+	    $validatedTicket = true;
 	
 	    if ($validatedTicket == true) {
 
@@ -125,9 +133,22 @@ class TicketController extends Controller
 	        	'destination' => $request->destination,
 	        	'class' => $request->class,
 	        	'roundtrip' => $request->roundtrip,
+			'valid' => '1',
+			'tradable' => '1',
 	    	]);
 
-	    	return redirect('/tickets/profile');
+		//Uses the credits repository to check if the user has a credit record, if not, creates it with a credit or increments and existing credit record trade value.
+		if ($this->credits->searchUserCreditExists(Auth::user()) == true) {
+			DB::table('credits')
+				->where('user_id', Auth::user()->id)
+				->increment('trade');
+		} else {
+			$request->user()->credits()->create([
+                                'trade' => '1',
+                        ]);
+		}
+		
+	    	return redirect('/tickets');
 
 	    } else {
 
@@ -153,7 +174,7 @@ class TicketController extends Controller
 				echo 'kulula';
 				break;
 			case 'Mango':
-                $validTicket = $this->verifyMango($ticketDetails);
+                		$validTicket = $this->verifyMango($ticketDetails);
 				break;
 			case 'Safair':
 				$validTicket = $this->verifySafair($ticketDetails);
@@ -284,5 +305,52 @@ class TicketController extends Controller
             } else {
                     return true;
             }
+    }
+
+    /**
+    * Changes the user ownership of a ticket and marks it untradable at the cost of a user credit
+    *
+    * @param array $ticketDetails
+    * @return Boolean
+    */
+    protected function tradeTicket(Request $request) {
+    
+    //Prevent users from trading there own tickets... 
+    if (Auth::user()->id != $request->user_id) {
+
+	//Check if the user making the trade even has a credit record and if so then count the users available credits...
+	if ($this->credits->searchUserCreditExists(Auth::user()) == true) {
+
+		$creditRecord = $this->credits->searchUserCreditAmount(Auth::user());
+
+		foreach ($creditRecord as $credit) {
+			$tradeCredit = $credit->trade;
+		}
+
+		if ($tradeCredit >= 1) {
+			//User has credits so we can decrement one for this trade
+                        DB::table('credits')
+                                ->where('user_id', Auth::user()->id)
+                                ->decrement('trade');
+
+			//Change the user_id of the ticket
+			DB::table('tickets')
+				->where('id', $request->id)
+				->update(array('user_id' => Auth::user()->id,
+					 'tradable' => 0));
+
+			return redirect('/profile');
+		} else {
+			$request->session()->flash('status', 'Ticket could not be traded! Not enough Credits!');
+                	return redirect('/profile');
+		}
+        } else {
+		$request->session()->flash('status', 'Ticket could not be traded! Not enough Credits! To gain a credit, submit a valid ticket.');
+                return redirect('/profile');
+        }
+    } else {
+	$request->session()->flash('status', 'Ticket could not be traded! You cannot reclaim a ticket that you submitted!');
+                return redirect('/profile');
+    }
     }
 }

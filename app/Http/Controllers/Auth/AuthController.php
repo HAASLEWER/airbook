@@ -58,13 +58,13 @@ class AuthController extends Controller
     }
 
     /**
-     * Create a new user instance after a valid registration.
+     * Create a new user instance after a valid registration as well as a new credit record for the user.
      *
      * @param  array  $data
      * @return User
      */
     protected function create(array $data)
-    {
+    {       
         return User::create([
             'name' => $data['name'],
             'lastname' => $data['lastname'],

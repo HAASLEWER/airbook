@@ -15,7 +15,27 @@ class TicketRepository
      */
     public function forUser(User $user)
     {
-        return Ticket::where('user_id', $user->id)
+	$where["user_id"] = $user->id;
+	$where["valid"] = '1';
+
+        return Ticket::where($where)
+                    ->orderBy('created_at', 'asc')
+                    ->get();
+    }
+
+    /**
+     * Get all of the tickets for a given user that the user has acquired through use of credits.
+     *
+     * @param  User  $user
+     * @return Collection
+     */
+    public function forUserAcquired(User $user)
+    {
+        $where["user_id"] = $user->id;
+        $where["valid"] = '1';
+	$where["tradable"] = '0';
+
+        return Ticket::where($where)
                     ->orderBy('created_at', 'asc')
                     ->get();
     }
@@ -27,7 +47,12 @@ class TicketRepository
      */
     public function allTickets()
     {
-        return Ticket::orderBy('created_at', 'asc')->get();
+	$where["valid"] = '1';
+        $where["tradable"] = '1';
+
+        return Ticket::where($where)
+		    ->orderBy('created_at', 'asc')
+		    ->get();
     } 
 
     /**
@@ -38,7 +63,8 @@ class TicketRepository
      */
     public function searchTickets($req)
     {
-        $where = [];
+	$where["valid"] = '1';
+
         unset($req["_token"]);
 
         foreach ($req as $key => $value) {
@@ -62,7 +88,8 @@ class TicketRepository
      */
     public function searchUserTickets($req, User $user)
     {
-        $where = [];
+	$where["user_id"] = $user->id;
+	$where["valid"] = '1';
         unset($req["_token"]);
 
         foreach ($req as $key => $value) {
@@ -73,8 +100,32 @@ class TicketRepository
             }
         }
 
-	//Append user_id to where condition to return only that users tickets
-	$where["user_id"] = $user->id;
+        return Ticket::where($where)
+                    ->orderBy('created_at', 'asc')
+                    ->get();
+    }
+
+    /**
+     * Search User specific tickets that have been acquired using a credit trade.
+     *
+     * @param  Ticket  $ticket     
+     * @return Collection
+     */
+    public function searchUserTicketsAcquired($req, User $user)
+    {
+        $where["user_id"] = $user->id;
+        $where["valid"] = '1';
+	$where["tradable"] = '0';
+
+        unset($req["_token"]);
+
+        foreach ($req as $key => $value) {
+            if (empty($value)) {
+                unset($req[$key]);
+            } else {
+                $where[$key] = $value;
+            }
+        }
 
         return Ticket::where($where)
                     ->orderBy('created_at', 'asc')
