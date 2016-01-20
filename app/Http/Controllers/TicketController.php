@@ -205,7 +205,7 @@ class TicketController extends Controller
 
 		$crawler = $client->submit($form);
 
-		if (strpos($crawler->text(),'Your reservation number could not be found') == true) {
+		if (!strpos($crawler->text(),"Your reservation number could not be found")) {
 			return false;
 		} else {
 			return true;
@@ -273,7 +273,7 @@ class TicketController extends Controller
 
         $crawler = $client->submit($form);
 
-        if (strpos($crawler->text(),'Couldn\'t find the specified booking.') == true) {
+        if (!strpos($crawler->text(),"Couldn\'t find the specified booking.")) {
             return false;
         } else {
             return true;
@@ -297,9 +297,9 @@ class TicketController extends Controller
 
             $crawler = $client->submit($form);
 
-            if (strpos($crawler->text(),'
-                Your booking could not be found. Please check the spelling and try again.
-            ') == true) {
+            if (!strpos($crawler->text(),"
+                    Your booking could not be found. Please check the spelling and try again.
+                ")) {
                     return false;
             } else {
                     return true;
