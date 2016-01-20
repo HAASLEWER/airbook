@@ -120,8 +120,7 @@ class TicketController extends Controller
                         'class' => 'required|max:255',
             ]);
 
-	    //$validatedTicket = $this->verifyTicket($request->all());
-	    $validatedTicket = true;
+	    $validatedTicket = $this->verifyTicket($request->all());
 	
 	    if ($validatedTicket == true) {
 
