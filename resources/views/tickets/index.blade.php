@@ -22,7 +22,7 @@
                     <label>Airline</label>
                 </div>
                 <div class="input-field col s4">
-                  <input id="dateofdeparture" type="text" class="validate" name="dateofdeparture">
+                  <input id="dateofdeparture" type="text" class="datepicker" name="dateofdeparture">
                   <label for="dateofdeparture">Date</label>
                 </div>    
                 <div class="input-field col s4">
@@ -58,7 +58,7 @@
                     <label>Class</label>
                 </div>
                 <div class="input-field col s4">
-                  <input id="roundtrip" type="text" class="validate" name="roundtrip">
+                  <input id="roundtrip" type="checkbox" class="validate" name="roundtrip">
                   <label for="roundtrip">Return Trip</label>
                 </div>      
             </div>                        
