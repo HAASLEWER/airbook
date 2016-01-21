@@ -177,6 +177,9 @@ class TicketController extends Controller
 			case 'Safair':
 				$validTicket = $this->verifySafair($ticketDetails);
 				break;
+			case 'British Airways':
+				$validTicket = $this->verifyBritishAirways($ticketDetails);
+				break;
 			default:
 				$validTicket = $this->verifySouthAfricanAirways($ticketDetails);
 		}
@@ -212,17 +215,36 @@ class TicketController extends Controller
 	}
 	
      /**
-    * NOT YET WORKING!!!!
-        * Validates a Kulula ticket via web scraper
-        *
-        * @param array $ticketDetails
-        * @return Boolean
+    * 
+    * Validates a Kulula ticket via web scraper
+    *
+    * @param array $ticketDetails
+    * @return Boolean
     */     
     protected function verifyKulula($ticketDetails) {
 
         $shell_string = '../vendor/bin/phantomjs ../resources/assets/js/kulula.js '.$ticketDetails['ticketref'].' '.Auth::user()->lastname;
         $output = shell_exec($shell_string);
         
+        if (substr($output, -2, 1) == '1') {
+                return false;
+        } else {
+                return true;
+        }
+    }
+
+    /**
+    * 
+    * Validates a British Airways ticket via web scraper
+    *
+    * @param array $ticketDetails
+    * @return Boolean
+    */
+    protected function verifyBritishAirways($ticketDetails) {
+
+        $shell_string = '../vendor/bin/phantomjs ../resources/assets/js/britishairways.js '.$ticketDetails['ticketref'].' '.Auth::user()->lastname;
+        $output = shell_exec($shell_string);
+
         if (substr($output, -2, 1) == '1') {
                 return false;
         } else {

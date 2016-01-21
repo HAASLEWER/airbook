@@ -31,7 +31,8 @@
                       <option value="1">South African Airways</option>
                       <option value="2">Kulula</option>
                       <option value="3">Mango</option>
-                      <option value="3">Safair</option>
+                      <option value="4">Safair</option>
+		      <option value="5">British Airways</option>
                     </select>
                     <label>Airline</label>
                 </div>
@@ -45,7 +46,7 @@
                       <option value="1">JNB</option>
                       <option value="2">BFN</option>
                       <option value="3">CPT</option>
-                      <option value="3">DBN</option>
+                      <option value="4">DBN</option>
                     </select>
                     <label>Origin</label>
                 </div>
@@ -57,7 +58,7 @@
                       <option value="1">JNB</option>
                       <option value="2">BFN</option>
                       <option value="3">CPT</option>
-                      <option value="3">DBN</option>
+                      <option value="4">DBN</option>
                     </select>
                     <label>Destination</label>
                 </div>
@@ -67,7 +68,7 @@
                       <option value="1">Economy</option>
                       <option value="2">Business</option>
                       <option value="3">First</option>
-                      <option value="3">Premium</option>
+                      <option value="4">Premium</option>
                     </select>
                     <label>Class</label>
                 </div>

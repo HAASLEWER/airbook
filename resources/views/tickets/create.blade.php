@@ -43,6 +43,7 @@
                       			<option value="Kulula">Kulula</option>
                       			<option value="Mango">Mango</option>
                       			<option value="Safair">Safair</option>
+					<option value="British Airways">British Airways</option>
                     		</select>
 				<label for="airline">Airline</label>
                         </div>
