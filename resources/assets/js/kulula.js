@@ -60,6 +60,7 @@ var steps = [
   function() {
     // Output content of page to stdout after form has been submitted
     page.evaluate(function() {
+      console.log(document.title);
       //console.log(document.querySelectorAll('html')[0].outerHTML);
       if(document.title == 'My Booking - kulula.com Error;') {
         console.log('1');

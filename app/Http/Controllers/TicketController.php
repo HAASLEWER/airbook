@@ -169,8 +169,7 @@ class TicketController extends Controller
 				$validTicket = $this->verifySouthAfricanAirways($ticketDetails);
 				break;
 			case 'Kulula':
-				//$validTicket = $this->verifyKulula($ticketDetails);
-				echo 'kulula';
+				$validTicket = $this->verifyKulula($ticketDetails);
 				break;
 			case 'Mango':
                 		$validTicket = $this->verifyMango($ticketDetails);
@@ -218,28 +217,18 @@ class TicketController extends Controller
         *
         * @param array $ticketDetails
         * @return Boolean
-        
+    */     
     protected function verifyKulula($ticketDetails) {
 
-            $client = new Client();
-            $crawler = $client->request('GET', 'https://flights.kulula.com/SSW2010/E6IE/myb.html#_ga=', 
-                ['headers' => [
-                    'User-Agent' => "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36"
-                    ]
-                ]);
-
-            $form = $crawler->selectButton('view / change flight')->form();
-            $form['bookingretrieval-reservationCode'] = $ticketDetails['ticketref'];
-            $form['bookingretrieval-lastName'] = Auth::user()->lastname;
-
-            $crawler = $client->submit($form);
-
-            if (strpos($crawler->text(),'Booking not found') == false) {
-                    return false;
-            } else {
-                    return true;
-            }
-    }*/
+        $shell_string = '../vendor/bin/phantomjs ../resources/assets/js/kulula.js '.$ticketDetails['ticketref'].' '.Auth::user()->lastname;
+        $output = shell_exec($shell_string);
+        
+        if (substr($output, -2, 1) == '1') {
+                return false;
+        } else {
+                return true;
+        }
+    }
 
     /**
     * Validates a Mango ticket via web scraper
