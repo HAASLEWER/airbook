@@ -182,6 +182,7 @@ class TicketController extends Controller
 				break;
 			default:
 				$validTicket = $this->verifySouthAfricanAirways($ticketDetails);
+				break;
 		}
 
 		//Boolean representation of valid or invalid ticket
@@ -199,7 +200,7 @@ class TicketController extends Controller
 		$client = new Client();
 		$crawler = $client->request('GET', 'https://www.flysaa.com/za/en/searchpnr.secured?loc=za&lan=en');
 
-		$form = $crawler->selectButton('LOGIN')->form();
+		$form = $crawler->selectButton('Login')->form();
 		$form['pnrCode'] = $ticketDetails['ticketref'];
 		$form['surName'] = Auth::user()->lastname;
 		$form['windowResLogin'] = '';
@@ -207,7 +208,7 @@ class TicketController extends Controller
 
 		$crawler = $client->submit($form);
 
-		if (!strpos($crawler->text(),"LOGOUT")) {
+		if (!strpos($crawler->text(),"You are logged in as")) {
 			return false;
 		} else {
 			return true;
@@ -300,7 +301,18 @@ class TicketController extends Controller
     protected function verifySafair($ticketDetails) {
 
             $client = new Client();
+
+	    //Do not verify SSL for this host as we get SSL errors...
+	    $guzzleClient = new \GuzzleHttp\Client(array(
+    			'curl' => array(
+        			CURLOPT_SSL_VERIFYPEER => false,
+    				),
+			));
+
+	    $client->setClient($guzzleClient);
+
             $crawler = $client->request('GET', 'https://www.flysafair.co.za/manage/Manage-booking');
+
 
             $form = $crawler->selectButton('Retrieve booking')->form();
             $form['PNR'] = $ticketDetails['ticketref'];
