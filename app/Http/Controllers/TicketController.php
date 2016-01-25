@@ -86,6 +86,7 @@ class TicketController extends Controller
     public function userSearch(Request $request) {
         return view('users.index', [
             'tickets' => $this->tickets->searchUserTicketsAcquired($request->all(), Auth::user()),
+	    'credits' => $this->credits->searchUserCreditAmount(Auth::user())
         ]);
     }
 
