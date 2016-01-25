@@ -111,6 +111,12 @@ class TicketController extends Controller
 	 */
 	public function store(Request $request)
 	{
+        if($request->roundtrip == 'on') {
+            $request->roundtrip = '1';
+        } else {
+            $request->roundtrip = '0';
+        }
+        
         $dateAndTime = $request->dateofdeparture . ' ' . $request->timeofdeparture;
 	    $this->validate($request, [
                         'ticketref' => 'required|max:255',
