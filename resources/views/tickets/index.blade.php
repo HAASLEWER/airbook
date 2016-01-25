@@ -87,12 +87,12 @@
                     </div>
                     <div class="card-reveal">
                         <span class="card-title grey-text text-darken-4">{{ $ticket->origin }} - {{ $ticket->destination }}<i class="material-icons right">close</i></span>
-                        <div>Aireline : {{ $ticket->airline }}</div>
+                        <div>Airline : {{ $ticket->airline }}</div>
                         <div>Departure : {{ $ticket->dateofdeparture }}</div>
                         <div>Class : {{ $ticket->class }}</div>
                         <div>Origin : {{ $ticket->origin }}</div>
                         <div>Destination : {{ $ticket->destination }}</div>
-                        <div>Return Ticket : {{ $ticket->roundtrip }}</div>
+                        <div>Return Ticket : {{{ $ticket->roundtrip == '1' ? 'Yes' : 'No' }}}</div>
 			@if (Auth::user())
 			<hr/>
 			<form method="POST" action="{{ url('/ticket/trade') }}">
