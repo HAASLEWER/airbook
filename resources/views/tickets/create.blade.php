@@ -49,10 +49,17 @@
                         </div>
                 </div>
         	<div class="row">
+            <label for="dateofdeparture">Date and Time of Departure (Time Format: hours:minutes)</label>
+            <div class="row">
             		<div class="input-field">
               			<input id="dateofdeparture" type="text" class="datepicker" name="dateofdeparture">
-				<label for="dateofdeparture">Date of Departure</label>
-            		</div>
+                </div>
+            </div>    
+            <div class="row">
+                <div class="input-field">
+                    <input id="timeofdeparture" type="text" class="timepicker" name="timeofdeparture">
+                </div>
+            </div>
         	</div>  
         	<div class="row">
             		<div class="input-field">

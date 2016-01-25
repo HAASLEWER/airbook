@@ -111,6 +111,7 @@ class TicketController extends Controller
 	 */
 	public function store(Request $request)
 	{
+        $dateAndTime = $request->dateofdeparture . ' ' . $request->timeofdeparture;
 	    $this->validate($request, [
                         'ticketref' => 'required|max:255',
                         'airline' => 'required|max:255',
@@ -127,7 +128,7 @@ class TicketController extends Controller
 	    	$request->user()->tickets()->create([
 	        	'ticketref' => $request->ticketref,
 	        	'airline' => $request->airline,
-	        	'dateofdeparture' => $request->dateofdeparture,
+	        	'dateofdeparture' => $request->dateAndTime,
 	        	'origin' => $request->origin,
 	        	'destination' => $request->destination,
 	        	'class' => $request->class,
