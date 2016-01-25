@@ -63,9 +63,14 @@ class TicketRepository
      */
     public function searchTickets($req)
     {
-	$where["valid"] = '1';
+	    $where["valid"] = '1';
 
         unset($req["_token"]);
+
+        if(isset($req['dateofdeparture'])) {
+            $depDate = $req['dateofdeparture'];
+            unset($req['dateofdeparture']);
+        }
 
         foreach ($req as $key => $value) {
             if (empty($value)) {
@@ -75,9 +80,24 @@ class TicketRepository
             }
         }
 
-        return Ticket::where($where)
-                    ->orderBy('created_at', 'asc')
-                    ->get();
+        if(isset($where['roundtrip'])) {
+            if($where['roundtrip'] == 'on') {
+                $where['roundtrip'] = '1';
+            } else {
+                $where['roundtrip'] = '0';
+            }
+        }
+        if(isset($depDate)) {
+            return Ticket::where($where)
+                ->whereBetween('dateofdeparture', [$depDate." 00:00:01", $depDate." 23:59:59"])
+                ->orderBy('created_at', 'asc')
+                ->get(); 
+        } else {
+            return Ticket::where($where)
+                ->orderBy('created_at', 'asc')
+                ->get();        
+        }
+        
     }         
 
     /**

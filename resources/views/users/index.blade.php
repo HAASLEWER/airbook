@@ -32,12 +32,12 @@
                       <option value="2">Kulula</option>
                       <option value="3">Mango</option>
                       <option value="4">Safair</option>
-		      <option value="5">British Airways</option>
+		                  <option value="5">British Airways</option>
                     </select>
                     <label>Airline</label>
                 </div>
                 <div class="input-field col s4">
-                  <input id="dateofdeparture" type="text" class="validate" name="dateofdeparture">
+                  <input id="dateofdeparture" type="text" class="datepicker" name="dateofdeparture">
                   <label for="dateofdeparture">Date</label>
                 </div>
                 <div class="input-field col s4">
@@ -73,7 +73,7 @@
                     <label>Class</label>
                 </div>
 		<div class="input-field col s4">
-                  <input id="roundtrip" type="text" class="validate" name="roundtrip">
+                  <input id="roundtrip" type="checkbox" class="validate" name="roundtrip">
                   <label for="roundtrip">Return Trip</label>
                 </div>
             </div>
@@ -107,7 +107,7 @@
                         						<div>Class : {{ $ticket->class }}</div>
                         						<div>Origin : {{ $ticket->origin }}</div>
                         						<div>Destination : {{ $ticket->destination }}</div>
-                        						<div>Return Ticket : {{ $ticket->roundtrip }}</div>
+                        						<div>Return Ticket : {{{ $ticket->roundtrip == '1' ? 'Yes' : 'No' }}}</div>
                     						</div>
                 					</div>
             					</div>    
