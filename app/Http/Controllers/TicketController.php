@@ -128,7 +128,7 @@ class TicketController extends Controller
 	    	$request->user()->tickets()->create([
 	        	'ticketref' => $request->ticketref,
 	        	'airline' => $request->airline,
-	        	'dateofdeparture' => $request->dateAndTime,
+	        	'dateofdeparture' => $dateAndTime,
 	        	'origin' => $request->origin,
 	        	'destination' => $request->destination,
 	        	'class' => $request->class,
