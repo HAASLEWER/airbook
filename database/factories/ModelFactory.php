@@ -32,14 +32,14 @@ $factory->define(App\Ticket::class, function (Faker\Generator $faker) {
     return [
         'ticketref' => str_random(10),
         'airline' => $faker->randomElement($array = array ('South African Airways','Kulula','Mango', 'Safair', 'British Airway')),
-        'dateofdeparture' => $faker->dateTime,
+        'dateofdeparture' => $faker->dateTimeBetween($startDate = 'now', $endDate = '+2 years'),
         'class' => $faker->randomElement($array = array ('Economy','Business','First', 'Premium')),
         'origin' => $faker->randomElement($array = array ('JNB','BFN','CPT', 'DBN')),
         'destination' => $faker->randomElement($array = array ('JNB','BFN','CPT', 'DBN')),
         'roundtrip' => $faker->boolean($chanceOfGettingTrue = 50),
         'created_at' => $faker->dateTime,
         'updated_at' => $faker->dateTime,
-        'user_id' => $faker->numberBetween($min = 1, $max = 50),
+        'user_id' => $faker->numberBetween($min = 1, $max = 20),
         'valid' => $faker->boolean($chanceOfGettingTrue = 50),
         'tradable' => $faker->boolean($chanceOfGettingTrue = 50),
     ];
@@ -48,7 +48,7 @@ $factory->define(App\Ticket::class, function (Faker\Generator $faker) {
 $factory->define(App\Credit::class, function (Faker\Generator $faker) {
 
     return [
-    	'user_id' => $faker->numberBetween($min = 1, $max = 50),
+    	'user_id' => $faker->numberBetween($min = 1, $max = 20),
         'trade' => $faker->numberBetween($min = 50, $max = 200),
         'created_at' => $faker->dateTime,
         'updated_at' => $faker->dateTime,
