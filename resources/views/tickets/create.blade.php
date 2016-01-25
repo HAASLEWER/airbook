@@ -5,6 +5,9 @@
 <!-- Create Ticket -->
 
 <link rel="stylesheet" href="{{ URL::asset('css/tickets/index.css') }}">
+<link rel="stylesheet" href="{{ URL::asset('css/tickets/materialize.clockpicker.css') }}">
+<link rel="stylesheet" href="{{ URL::asset('css/tickets/materialize.clockpicker.css') }}">
+<script src="{{ URL::asset('js/materialize.clockpicker.js') }}"></script>
 
 <div class="card">
         <div class="card-content">
@@ -49,17 +52,18 @@
                         </div>
                 </div>
         	<div class="row">
-            <label for="dateofdeparture">Date and Time of Departure (Time Format: hours:minutes)</label>
             <div class="row">
+                <label for="dateofdeparture">Date of Departure</label>
             		<div class="input-field">
               			<input id="dateofdeparture" type="text" class="datepicker" name="dateofdeparture">
                 </div>
             </div>    
             <div class="row">
-                <div class="input-field">
-                    <input id="timeofdeparture" type="text" class="timepicker" name="timeofdeparture">
-                </div>
-            </div>
+              <div class="input-field">
+                <label for="input_starttime">Time of Departure</label>
+                <input id="input_starttime" name="timeofdeparture" class="timepicker" type="text">
+              </div>
+            </div>        
         	</div>  
         	<div class="row">
             		<div class="input-field">
@@ -115,4 +119,10 @@
 		</div>
 	</div>
 </div>
+
+<script type="text/javascript">
+  $('#input_starttime').pickatime({
+    twelvehour: false
+  });
+</script>
 @endsection
