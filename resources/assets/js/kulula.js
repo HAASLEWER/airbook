@@ -62,7 +62,7 @@ var steps = [
     page.evaluate(function() {
       console.log(document.title);
       //console.log(document.querySelectorAll('html')[0].outerHTML);
-      if(document.title == 'My Booking - kulula.com Error;') {
+      if(document.title == 'My Booking - kulula.com Error;' || document.title == 'Pardon Our Interruption') {
         console.log('1');
       } else {
         console.log('0');
