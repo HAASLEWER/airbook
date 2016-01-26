@@ -18,10 +18,9 @@
             </div>
 	    @if (count($credits) == 0)
 	    <h3>Credits : 0</h3>
+	    @else
+	    <h3>Credits: {{ $credits->trade }}</h3>
 	    @endif
-	    @foreach ($credits as $credit)
-	    <h3>Credits: {{ $credit->trade }}</h3>
-	    @endforeach
 	    <hr/>
 	    <h3>Acquired Tickets</h3>
             <div class="row">

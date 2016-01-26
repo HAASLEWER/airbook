@@ -49,9 +49,28 @@ class Kernel extends ConsoleKernel
 				   ->get();
 
 		foreach ($tickets as $ticket) {
+			//Determine the credit value on the class of the ticket to set the decrement amount
+        		switch ($ticket->class) {
+                		case 'Economy':
+                        		$ticketValue = 1;
+                        		break;
+                		case 'Business':
+                        		$ticketValue = 2;
+                        		break;
+                		case 'First':
+                        		$ticketValue = 3;
+                        		break;
+                		case 'Premium':
+                        		$ticketValue = 4;
+                        		break;
+                		default:
+                        		$ticketValue = 1;
+                        		break;
+        		}
+
                         DB::table('credits')
                                 ->where('user_id', $ticket->user_id)
-                                ->decrement('trade');
+                                ->decrement('trade', $ticketValue);
 
 			DB::table('tickets')
 				->where('id', $ticket->id)

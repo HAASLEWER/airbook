@@ -35,6 +35,6 @@ class CreditRepository
      */
     public function searchUserCreditAmount(User $user)
     {
-    	return Credit::where('user_id', $user->id)->get();
+    	return Credit::where('user_id', $user->id)->first();
     }
 }

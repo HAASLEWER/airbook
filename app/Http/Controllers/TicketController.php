@@ -105,6 +105,33 @@ class TicketController extends Controller
     }    
 
 	/**
+         * Determine the values of a tickets class
+         *
+         * @param  Array $ticketDetails
+         * @return interger
+         */
+	protected function ticketValues($classValue) {
+		//Determine the credit value on the class of the submitted ticket
+        	switch ($classValue) {
+                	case 'Economy':
+                        	return 1;
+                        	break;
+                	case 'Business':
+                        	return 2;
+                        	break;
+                	case 'First':
+                       		return 3;
+                        	break;
+                	case 'Premium':
+                        	return 4;
+                        	break;
+                	default:
+                        	return 1;
+                        	break;
+        	}
+	}
+
+	/**
 	 * Create a new Ticket while ticket is valid.
 	 *
 	 * @param  Request  $request
@@ -112,13 +139,15 @@ class TicketController extends Controller
 	 */
 	public function store(Request $request)
 	{
+
         if($request->roundtrip == 'on') {
             $request->roundtrip = '1';
         } else {
             $request->roundtrip = '0';
         }
-        
+
         $dateAndTime = $request->dateofdeparture . ' ' . $request->timeofdeparture;
+
 	    $this->validate($request, [
                         'ticketref' => 'required|max:255',
                         'airline' => 'required|max:255',
@@ -128,10 +157,12 @@ class TicketController extends Controller
                         'class' => 'required|max:255',
             ]);
 
-	    $validatedTicket = $this->verifyTicket($request->all());
+	    //$validatedTicket = $this->verifyTicket($request->all());
+	    $validatedTicket = true;
 	
 	    if ($validatedTicket == true) {
 
+		//Create the ticket record...
 	    	$request->user()->tickets()->create([
 	        	'ticketref' => $request->ticketref,
 	        	'airline' => $request->airline,
@@ -144,14 +175,17 @@ class TicketController extends Controller
 			'tradable' => '1',
 	    	]);
 
+		//Call ticketValues to determine how to increment
+		$ticketValue = $this->ticketValues($request->class);		
+
 		//Uses the credits repository to check if the user has a credit record, if not, creates it with a credit or increments and existing credit record trade value.
 		if ($this->credits->searchUserCreditExists(Auth::user()) == true) {
 			DB::table('credits')
 				->where('user_id', Auth::user()->id)
-				->increment('trade');
+				->increment('trade', $ticketValue);
 		} else {
 			$request->user()->credits()->create([
-                                'trade' => '1',
+                                'trade' => $ticketValue,
                         ]);
 		}
 		
@@ -353,15 +387,15 @@ class TicketController extends Controller
 
 		$creditRecord = $this->credits->searchUserCreditAmount(Auth::user());
 
-		foreach ($creditRecord as $credit) {
-			$tradeCredit = $credit->trade;
-		}
+		//Call ticketValues to determine how to increment
+		$class = DB::table('tickets')->where('id', $request->id)->first();
+		$value = $this->ticketValues($class->class);
 
-		if ($tradeCredit >= 1) {
+		if ($creditRecord->trade >= $value) {
 			//User has credits so we can decrement one for this trade
                         DB::table('credits')
                                 ->where('user_id', Auth::user()->id)
-                                ->decrement('trade');
+                                ->decrement('trade', $value);
 
 			//Change the user_id of the ticket
 			DB::table('tickets')
