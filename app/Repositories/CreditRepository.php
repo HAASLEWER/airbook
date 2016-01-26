@@ -37,4 +37,31 @@ class CreditRepository
     {
     	return Credit::where('user_id', $user->id)->first();
     }
+
+    /**
+     * Determine the values of a tickets class
+     *
+     * @param  Array $ticketDetails
+     * @return interger
+     */
+     public function ticketValues($classValue) {
+         //Determine the credit value on the class of the submitted ticket
+         switch ($classValue) {
+         	case 'Economy':
+                	return 1;
+                        break;
+                case 'Business':
+                        return 2;
+                        break;
+		case 'First':
+                        return 3;
+                        break;
+                case 'Premium':
+                        return 4;
+                        break;
+                default:
+                        return 1;
+                        break;
+         }
+      }
 }

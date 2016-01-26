@@ -105,33 +105,6 @@ class TicketController extends Controller
     }    
 
 	/**
-         * Determine the values of a tickets class
-         *
-         * @param  Array $ticketDetails
-         * @return interger
-         */
-	protected function ticketValues($classValue) {
-		//Determine the credit value on the class of the submitted ticket
-        	switch ($classValue) {
-                	case 'Economy':
-                        	return 1;
-                        	break;
-                	case 'Business':
-                        	return 2;
-                        	break;
-                	case 'First':
-                       		return 3;
-                        	break;
-                	case 'Premium':
-                        	return 4;
-                        	break;
-                	default:
-                        	return 1;
-                        	break;
-        	}
-	}
-
-	/**
 	 * Create a new Ticket while ticket is valid.
 	 *
 	 * @param  Request  $request
@@ -157,8 +130,7 @@ class TicketController extends Controller
                         'class' => 'required|max:255',
             ]);
 
-	    //$validatedTicket = $this->verifyTicket($request->all());
-	    $validatedTicket = true;
+	    $validatedTicket = $this->verifyTicket($request->all());
 	
 	    if ($validatedTicket == true) {
 
@@ -176,7 +148,7 @@ class TicketController extends Controller
 	    	]);
 
 		//Call ticketValues to determine how to increment
-		$ticketValue = $this->ticketValues($request->class);		
+		$ticketValue = $this->credits->ticketValues($request->class);		
 
 		//Uses the credits repository to check if the user has a credit record, if not, creates it with a credit or increments and existing credit record trade value.
 		if ($this->credits->searchUserCreditExists(Auth::user()) == true) {
@@ -389,7 +361,7 @@ class TicketController extends Controller
 
 		//Call ticketValues to determine how to increment
 		$class = DB::table('tickets')->where('id', $request->id)->first();
-		$value = $this->ticketValues($class->class);
+		$value = $this->credits->ticketValues($class->class);
 
 		if ($creditRecord->trade >= $value) {
 			//User has credits so we can decrement one for this trade
