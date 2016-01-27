@@ -114,6 +114,31 @@
       </script>
 
       @yield('content')
+	
+	<footer class="page-footer">
+          <div class="container">
+            <div class="row">
+              <div class="col l6 s12">
+                <h5 class="white-text">Prototype Application</h5>
+                <p class="grey-text text-lighten-4">This application is intended for use as a proof of concept and should not enter full scale production without the explicit permission of the stakeholders involved in the project.</p>
+              </div>
+              <div class="col l4 offset-l2 s12">
+                <h5 class="white-text">Links</h5>
+                <ul>
+		  <li><a class="grey-text text-lighten-3" target="_blank" href="http://www.mandelbrot.co.za">Developed By Mandelbrot Technologies</a></li>
+                  <li><a class="grey-text text-lighten-3" target="_blank" href="http://www.openmanage.co.za">Hosted By Openmanage</a></li>
+                  <li><a class="grey-text text-lighten-3" href="/privacy">Privacy Policy</a></li>
+                  <li><a class="grey-text text-lighten-3" href="/disclaimer">Legal Disclaimer</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="footer-copyright">
+            <div class="container">
+            © 2016 Copyright Airbook
+            </div>
+          </div>
+        </footer>
 
     </body>
 </html>

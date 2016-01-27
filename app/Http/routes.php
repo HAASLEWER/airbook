@@ -32,6 +32,20 @@ Route::group(['middleware' => ['web']], function () {
     });  
 
     /**
+     * Disclaimer Page
+     */
+    Route::get('/disclaimer', function () {
+        return view('disclaimer');
+    });
+
+    /**
+     * Privacy Page
+     */
+    Route::get('/privacy', function () {
+        return view('privacy');
+    });
+
+    /**
      * Authentication route for Laravel
      */
     Route::auth();
