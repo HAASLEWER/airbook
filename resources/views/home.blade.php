@@ -65,6 +65,16 @@
 <div id="sign_up_modal" class="modal modal-fixed-footer">
 	<div class="modal-content">
 		<h5>Sign Up</h5>
+		<!-- Display Validation Errors -->
+                <div class="row red darken-4">
+                	<span class="white-text">@include('common.errors')</span>
+                        @if(Session::has('status'))
+                        <b class="white-text">Something went wrong!</b>
+                        <br/><br/>
+                        <span class="white-text">{{ Session::get('status') }}</span>
+                        <br/><br/>
+                        @endif
+                </div>
 		<div class="row">
 				<div class="row">
 					<div class="input-field col s6">

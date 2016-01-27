@@ -45,7 +45,6 @@
 			<li><a href="#login_modal" class="login">Login</a></li>
                 @endif
           </ul>
-
         </div>
       </nav>
 
@@ -54,6 +53,16 @@
 		<div id="login_modal" class="modal modal-fixed-footer" style="width: 300px; height: 370px;">
         		<div class="modal-content">
                 		<h5>Login</h5>
+				<!-- Display Validation Errors -->
+                		<div class="row red darken-4">
+                			<span class="white-text">@include('common.errors')</span>
+                			@if(Session::has('status'))
+                        		<b class="white-text">Something went wrong!</b>
+                        		<br/><br/>
+                        		<span class="white-text">{{ Session::get('status') }}</span>
+                        		<br/><br/>
+                			@endif
+                		</div>
                 		<div class="row">
                                 {!! csrf_field() !!}
                                 	<div class="row">
