@@ -4,12 +4,23 @@
 
 <link rel="stylesheet" href="{{ URL::asset('css/tickets/index.css') }}">
 
-@include('common.errors')
 <form method="POST" action="{{ url('/tickets') }}">
     {!! csrf_field() !!}
     <div class="card search-card">
         <div class="card-content">
 	    <h3>Tradable Tickets</h3>
+
+	    <!-- Display Validation Errors -->
+        	<div class="row red darken-4">
+                <span class="white-text">@include('common.errors')</span>
+                @if(Session::has('status'))
+                        <b class="white-text">Something went wrong!</b>
+                        <br/><br/>
+                        <span class="white-text">{{ Session::get('status') }}</span>
+                        <br/><br/>
+                @endif
+        	</div>
+
             <div class="row">
                 <div class="input-field col s4">
                     <select  id="airline" class="validate">
