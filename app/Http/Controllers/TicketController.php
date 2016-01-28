@@ -115,8 +115,16 @@ class TicketController extends Controller
 
         if($request->roundtrip == 'on') {
             $request->roundtrip = '1';
+
+	    //Validate existance but more importantly, return dates cannot be before departure dates... not to obothered with same day returns for now...
+	    $this->validate($request, ['dateofreturn' => 'required|date|after:'.$request->dateofdeparture, 'timeofreturn' => 'required|max:255']);
+	
+	    $dateAndTimeReturn = $request->dateofreturn . ' ' . $request->timeofreturn;
+
         } else {
             $request->roundtrip = '0';
+
+	    $dateAndTimeReturn = "0000-00-00 00:00:00";
         }
 
         $dateAndTime = $request->dateofdeparture . ' ' . $request->timeofdeparture;
@@ -125,6 +133,7 @@ class TicketController extends Controller
                         'ticketref' => 'required|max:255',
                         'airline' => 'required|max:255',
                         'dateofdeparture' => 'required|max:255',
+			'timeofdeparture' => 'required|max:255',
                         'origin' => 'required|max:255',
                         'destination' => 'required|max:255',
                         'class' => 'required|max:255',
@@ -143,6 +152,7 @@ class TicketController extends Controller
 	        	'destination' => $request->destination,
 	        	'class' => $request->class,
 	        	'roundtrip' => $request->roundtrip,
+			'dateofreturn' => $dateAndTimeReturn,
 			'valid' => '1',
 			'tradable' => '1',
 	    	]);

@@ -107,6 +107,9 @@
                         						<div>Origin : {{ $ticket->origin }}</div>
                         						<div>Destination : {{ $ticket->destination }}</div>
                         						<div>Return Ticket : {{{ $ticket->roundtrip == '1' ? 'Yes' : 'No' }}}</div>
+									@if ($ticket->roundtrip == '1')
+                        							<div>Return : {{ $ticket->dateofreturn }}</div>
+                        						@endif
                     						</div>
                 					</div>
             					</div>    

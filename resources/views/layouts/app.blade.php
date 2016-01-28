@@ -117,6 +117,28 @@
     			selectYears: 15, // Creates a dropdown of 15 years to control year
 			format: 'yyyy-mm-dd'
   		});
+		
+		//Timepicker stuff
+		$('#input_starttime').pickatime({
+    			twelvehour: false
+  		});
+
+  		$('#input_starttime2').pickatime({
+    			twelvehour: false
+  		});
+
+		//roundtrip hidden fields stuff...
+		$('#roundtripCreate').change(function(){
+			if (this.checked) { 
+				$('#DOR').css('display', '');
+				$('#TOR').css('display', '');
+			} else {
+				$('#DOR').css('display', 'none');
+				$('#dateofreturn').val('');
+                                $('#TOR').css('display', 'none');
+				$('#input_starttime2').val('');
+			}
+		});
 
 	});
 

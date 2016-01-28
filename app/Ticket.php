@@ -11,7 +11,7 @@ class Ticket extends Model
      *
      * @var array
      */
-    protected $fillable = ['ticketref', 'airline', 'dateofdeparture', 'class', 'origin', 'destination', 'roundtrip', 'valid', 'tradable'];
+    protected $fillable = ['ticketref', 'airline', 'dateofdeparture', 'class', 'origin', 'destination', 'roundtrip', 'dateofreturn', 'valid', 'tradable'];
 
     /**
      * Get the user that owns the ticket

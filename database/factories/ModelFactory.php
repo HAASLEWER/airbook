@@ -37,6 +37,7 @@ $factory->define(App\Ticket::class, function (Faker\Generator $faker) {
         'origin' => $faker->randomElement($array = array ('JNB','BFN','CPT', 'DBN')),
         'destination' => $faker->randomElement($array = array ('JNB','BFN','CPT', 'DBN')),
         'roundtrip' => $faker->boolean($chanceOfGettingTrue = 50),
+	'dateofreturn' => $faker->dateTimeBetween($startDate = '+1 years', $endDate = '+2 years'),
         'created_at' => $faker->dateTime,
         'updated_at' => $faker->dateTime,
         'user_id' => $faker->numberBetween($min = 1, $max = 20),

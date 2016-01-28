@@ -103,11 +103,23 @@
         	</div>  
         	<div class="row">
             		<div class="input-field">
-              			<input id="roundtrip" type="checkbox" class="validate" name="roundtrip">
-              			<label for="roundtrip">Return Trip</label>
+              			<input id="roundtripCreate" type="checkbox" class="validate" name="roundtrip">
+              			<label for="roundtripCreate">Return Trip</label>
 				<br/><br/>
             		</div>
         	</div>           
+		<div class="row" style="display: none;" id="DOR">
+                <label for="dateofreturn">Date of Return</label>
+                        <div class="input-field">
+                                <input id="dateofreturn" type="text" class="datepicker" name="dateofreturn">
+                </div>
+            	</div>
+            	<div class="row" style="display: none;" id="TOR">
+              		<div class="input-field">
+                	<label for="input_starttime2">Time of Return</label>
+                	<input id="input_starttime2" name="timeofreturn" class="timepicker" type="text">
+              	</div>
+            	</div>
 
         	<button class="btn waves-effect waves-light" type="submit" name="action">Submit
           		<i class="material-icons right">send</i>
@@ -119,10 +131,5 @@
 		</div>
 	</div>
 </div>
-
-<script type="text/javascript">
-  $('#input_starttime').pickatime({
-    twelvehour: false
-  });
 </script>
 @endsection
