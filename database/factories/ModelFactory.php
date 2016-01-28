@@ -31,7 +31,7 @@ $factory->define(App\Ticket::class, function (Faker\Generator $faker) {
 
     return [
         'ticketref' => str_random(10),
-        'airline' => $faker->randomElement($array = array ('South African Airways','Kulula','Mango', 'Safair', 'British Airway')),
+        'airline' => $faker->randomElement($array = array ('South African Airways','Kulula','Mango', 'Safair', 'British Airways')),
         'dateofdeparture' => $faker->dateTimeBetween($startDate = 'now', $endDate = '+2 years'),
         'class' => $faker->randomElement($array = array ('Economy','Business','First', 'Premium')),
         'origin' => $faker->randomElement($array = array ('JNB','BFN','CPT', 'DBN')),

@@ -15,8 +15,8 @@ class TicketRepository
      */
     public function forUser(User $user)
     {
-	$where["user_id"] = $user->id;
-	$where["valid"] = '1';
+    $where["user_id"] = $user->id;
+    $where["valid"] = '1';
 
         return Ticket::where($where)
                     ->orderBy('created_at', 'asc')
@@ -33,7 +33,7 @@ class TicketRepository
     {
         $where["user_id"] = $user->id;
         $where["valid"] = '1';
-	$where["tradable"] = '0';
+        $where["tradable"] = '0';
 
         return Ticket::where($where)
                     ->orderBy('created_at', 'asc')
@@ -47,12 +47,12 @@ class TicketRepository
      */
     public function allTickets()
     {
-	$where["valid"] = '1';
+        $where["valid"] = '1';
         $where["tradable"] = '1';
 
         return Ticket::where($where)
-		    ->orderBy('created_at', 'asc')
-		    ->get();
+            ->orderBy('created_at', 'asc')
+            ->get();
     } 
 
     /**
@@ -63,13 +63,16 @@ class TicketRepository
      */
     public function searchTickets($req)
     {
-	    $where["valid"] = '1';
+
+        $where["valid"] = '1';
 
         unset($req["_token"]);
 
         if(isset($req['dateofdeparture'])) {
             $depDate = $req['dateofdeparture'];
             unset($req['dateofdeparture']);
+        } else {
+            unset($depDate);
         }
 
         foreach ($req as $key => $value) {
@@ -87,7 +90,8 @@ class TicketRepository
                 $where['roundtrip'] = '0';
             }
         }
-        if(isset($depDate)) {
+
+        if($depDate != '') {
             return Ticket::where($where)
                 ->whereBetween('dateofdeparture', [$depDate." 00:00:01", $depDate." 23:59:59"])
                 ->orderBy('created_at', 'asc')
@@ -108,9 +112,16 @@ class TicketRepository
      */
     public function searchUserTickets($req, User $user)
     {
-	$where["user_id"] = $user->id;
-	$where["valid"] = '1';
+        $where["user_id"] = $user->id;
+        $where["valid"] = '1';
         unset($req["_token"]);
+
+        if(isset($req['dateofdeparture'])) {
+            $depDate = $req['dateofdeparture'];
+            unset($req['dateofdeparture']);
+        } else {
+            unset($depDate);
+        }
 
         foreach ($req as $key => $value) {
             if (empty($value)) {
@@ -120,9 +131,24 @@ class TicketRepository
             }
         }
 
-        return Ticket::where($where)
-                    ->orderBy('created_at', 'asc')
-                    ->get();
+        if(isset($where['roundtrip'])) {
+            if($where['roundtrip'] == 'on') {
+                $where['roundtrip'] = '1';
+            } else {
+                $where['roundtrip'] = '0';
+            }
+        }
+
+        if($depDate != '') {
+            return Ticket::where($where)
+                ->whereBetween('dateofdeparture', [$depDate." 00:00:01", $depDate." 23:59:59"])
+                ->orderBy('created_at', 'asc')
+                ->get(); 
+        } else {
+            return Ticket::where($where)
+                ->orderBy('created_at', 'asc')
+                ->get();        
+        }
     }
 
     /**
@@ -135,9 +161,16 @@ class TicketRepository
     {
         $where["user_id"] = $user->id;
         $where["valid"] = '1';
-	$where["tradable"] = '0';
+        $where["tradable"] = '0';
 
         unset($req["_token"]);
+
+        if(isset($req['dateofdeparture'])) {
+            $depDate = $req['dateofdeparture'];
+            unset($req['dateofdeparture']);
+        } else {
+            unset($depDate);
+        }
 
         foreach ($req as $key => $value) {
             if (empty($value)) {
@@ -147,8 +180,23 @@ class TicketRepository
             }
         }
 
-        return Ticket::where($where)
-                    ->orderBy('created_at', 'asc')
-                    ->get();
+        if(isset($where['roundtrip'])) {
+            if($where['roundtrip'] == 'on') {
+                $where['roundtrip'] = '1';
+            } else {
+                $where['roundtrip'] = '0';
+            }
+        }
+
+        if($depDate != '') {
+            return Ticket::where($where)
+                ->whereBetween('dateofdeparture', [$depDate." 00:00:01", $depDate." 23:59:59"])
+                ->orderBy('created_at', 'asc')
+                ->get(); 
+        } else {
+            return Ticket::where($where)
+                ->orderBy('created_at', 'asc')
+                ->get();        
+        }
     }
 }
