@@ -19,8 +19,7 @@
 
       <nav>
         <div class="nav-wrapper">
-          <a href="#!" class="brand-logo" style="margin-left: 45px;"><i class="material-icons">airplanemode_active</i></a>
-          <a href="#!" class="brand-logo" style="margin-left: 80px;">AirBook</a>
+          <a href="#!" class="brand-logo" style="margin-left: 45px;"><i class="material-icons" style="display:inline-block;">airplanemode_active</i>Airbook</a>
 
           <a href="#" data-activates="mobile-demo" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
           <ul class="right hide-on-med-and-down">
