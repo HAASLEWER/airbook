@@ -26,7 +26,7 @@ class MailController extends Controller
     	try {
     		Mail::send('emails.contact', ['name' => $name, 'email' => $email, 'body' => $body], function ($m) use ($all) {
 	    		$m->from('info@openmanage.co.za', 'Airbook Contact Form');
-	    		$m->to($all['email'], $all['name'])->subject('New Contact from Airbook!');
+	    		$m->to('dojapopoola@gmail.com', 'Kay')->subject('New Contact from Airbook!');
     		});
 
     		return redirect('/');
