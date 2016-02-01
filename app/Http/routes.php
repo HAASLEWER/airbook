@@ -46,6 +46,14 @@ Route::group(['middleware' => ['web']], function () {
     });
 
     /**
+     * Contact Page
+     */
+    Route::get('/contact', function () {
+        return view('contact');
+    });
+    Route::post('/contact', 'MailController@contactMail');
+
+    /**
      * Authentication route for Laravel
      */
     Route::auth();

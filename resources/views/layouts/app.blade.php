@@ -28,8 +28,10 @@
 	    	@if (Auth::user())
                         <li><a href="/tickets/create" class="create">Add Ticket</a></li>
 			<li><a href="/profile">My Profile</a></li>
+      <li><a href="/contact">Contact Us</a></li>
 			<li><a href="/logout" class="logout">Logout</a></li>
 		@else
+      <li><a href="/contact">Contact Us</a></li>
 			<li><a href="#login_modal" class="login">Login</a></li>
 		@endif
           </ul>
@@ -39,10 +41,12 @@
 		@if (Auth::user())
                         <li><a href="/tickets/create" class="create">Add Ticket</a></li>
 			<li><a href="/profile">My Profile</a></li>
+      <li><a href="/contact">Contact Us</a></li>
 			<li><a href="/logout" class="logout">Logout</a></li>
 		@else
+      <li><a href="/contact">Contact Us</a></li>
 			<li><a href="#login_modal" class="login">Login</a></li>
-                @endif
+    @endif
           </ul>
         </div>
       </nav>
